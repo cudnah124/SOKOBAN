@@ -3,6 +3,8 @@ import pygame
 import os
 import sys
 
+from src.solve import solve
+
 # --- CONFIG ---
 TILE_SIZE = 64
 FPS = 60
@@ -45,6 +47,7 @@ def load_level(level):
 def main():
     parser = argparse.ArgumentParser(description="Simple Sokoban Game")
     parser.add_argument("--level", type=int, default=1, help="Level number to load")
+    parser.add_argument("--solve", type=int, default=0, help="Auto-solve the level (1 to enable)")
     args = parser.parse_args()
     
     pygame.init()
@@ -52,6 +55,17 @@ def main():
 
     # Load map
     walls, boxes, goals, player, rows, cols = load_level(args.level)
+
+    if args.solve:
+        # compute solution path (list of State)
+        path = solve(walls, player, boxes, goals)
+        if path:
+            print("Solved! Steps:", len(path)-1)
+            anim_path = path
+            anim_index = 0
+            anim_last_time = pygame.time.get_ticks()
+        else:
+            print("No solution found.")
 
     # Tạo cửa sổ
     screen = pygame.display.set_mode((cols*TILE_SIZE, rows*TILE_SIZE))
