@@ -56,6 +56,12 @@ def main():
     # Load map
     walls, boxes, goals, player, rows, cols = load_level(args.level)
 
+    # prepare animation variables
+    anim_path = None
+    anim_index = 0
+    anim_last_time = 0
+    ANIM_DELAY_MS = 200
+    
     if args.solve:
         # compute solution path (list of State)
         path = solve(walls, player, boxes, goals)
@@ -108,8 +114,25 @@ def main():
                         boxes.remove(new_pos)
                         boxes.add(box_new_pos)
 
-                    # Di chuyển người chơi
-                    player = new_pos
+                    # Di chuyển người chơi (only if not animating)
+                    if anim_path is None:
+                        player = new_pos
+                        
+        # --- Animation update (if we have a solution path) ---
+        if anim_path is not None:
+            now = pygame.time.get_ticks()
+            if now - anim_last_time >= ANIM_DELAY_MS:
+                anim_last_time = now
+                anim_index += 1
+                if anim_index < len(anim_path):
+                    s = anim_path[anim_index]
+                    player = s.player
+                    boxes = set(s.boxes)
+                else:
+                    # finished animation
+                    print("---Animation finished---")
+                    anim_path = None
+
 
         # --- Kiểm tra thắng ---
         if all(box in goals for box in boxes):
