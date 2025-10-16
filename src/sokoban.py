@@ -19,6 +19,16 @@ GREEN = (100, 255, 100)
 BLUE = (100, 100, 255)
 YELLOW = (255, 255, 0)
 
+# Global Variables
+g_solution_dir = ".\solutions"
+g_level = -1
+g_walls = set()
+g_boxes = set()
+g_goals = set()
+g_player = None
+g_rows = 0
+g_cols = 0
+
 # --- LOAD LEVEL ---
 def load_level(level):
     filename = os.path.join("levels", f"level{level}.txt")
@@ -44,18 +54,33 @@ def load_level(level):
                 boxes.add(pos)
     return walls, boxes, goals, player, len(lines), (max(len(line) for line in lines))
 
+# --- SAVE SOLUTION ---
+def save_solution(path):
+    # Add solution to file
+    os.makedirs(g_solution_dir, exist_ok=True)
+
+    solution_file = os.path.join(g_solution_dir, f"level_{g_level}_solution.txt")
+    with open(solution_file, "w") as file:
+        num = 0
+        file.write(f"Solution for level {g_level}, steps: {len(path)-1}\n")
+        for s in path:
+            file.write(f"Step {num}:{s.player}\n")
+            num += 1
+    print("Solution added to ", solution_file)
+
 # --- GAME LOOP ---
 def main():
     parser = argparse.ArgumentParser(description="Simple Sokoban Game")
     parser.add_argument("--level", type=int, default=1, help="Level number to load")
     parser.add_argument("--solve", type=int, default=0, help="Auto-solve the level (1 to enable)")
     args = parser.parse_args()
+    g_level = args.level
     
     pygame.init()
     clock = pygame.time.Clock()
 
     # Load map
-    walls, boxes, goals, player, rows, cols = load_level(args.level)
+    walls, boxes, goals, player, rows, cols = load_level(g_level)
 
     # prepare animation variables
     anim_path = None
@@ -72,6 +97,7 @@ def main():
         print(f"Time taken: {elapsed_time:.3f} seconds")
         if path:
             print("Solved! Steps:", len(path)-1)
+            save_solution(path)
             anim_path = path
             anim_index = 0
             anim_last_time = pygame.time.get_ticks()
