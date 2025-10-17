@@ -43,15 +43,18 @@ def load_level(level):
             pos = (j, i)
             if cell == "#":
                 walls.add(pos)
-            elif cell == "B":
+            elif cell == "$":
                 boxes.add(pos)
-            elif cell == "P":
+            elif cell == "@":
                 player = pos
-            elif cell == "G":
+            elif cell == ".":
                 goals.add(pos)
-            elif cell == "X":
+            elif cell == "*":
                 goals.add(pos)
                 boxes.add(pos)
+            elif cell == "+":
+                goals.add(pos)
+                player.add(pos)
     return walls, boxes, goals, player, len(lines), (max(len(line) for line in lines))
 
 # --- SAVE SOLUTION ---
@@ -90,11 +93,7 @@ def main():
     
     if args.solve:
         # compute solution path (list of State)
-        start_time = time.perf_counter()
         path = solve(walls, player, boxes, goals)
-        end_time = time.perf_counter()
-        elapsed_time = end_time - start_time
-        print(f"Time taken: {elapsed_time:.3f} seconds")
         if path:
             print("Solved! Steps:", len(path)-1)
             save_solution(path)
