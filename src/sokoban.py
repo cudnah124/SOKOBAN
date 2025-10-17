@@ -6,6 +6,7 @@ from src.solve import solve
 
 # --- CONFIG ---
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+PREVIEW_TILE_SIZE = 32
 TILE_SIZE = 64
 FPS = 60
 ANIM_DELAY_MS = 200
@@ -28,6 +29,17 @@ main_menu_buttons = {
     "Exit": pygame.Rect(SCREEN_WIDTH/2 - 100, 350, 200, 60),
 }
 
+# --- LEVEL SELECT BUTTONS ---
+level_select_buttons = {
+    "ENTER": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT - 130, 170, 50),
+    "SOLUTION": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT - 70, 170, 50),
+    "<": pygame.Rect(50, SCREEN_HEIGHT - 100, 100, 50),
+    ">": pygame.Rect(SCREEN_WIDTH - 150, SCREEN_HEIGHT - 100, 100, 50)
+}
+
+# --- LEVEL SELECT VARIABLES ---
+g_current_level_index = 0
+
 # --- SOLVING ANIMATION VARIABLES ---
 anim_path = None
 anim_index = 0
@@ -42,6 +54,8 @@ GREEN = (100, 255, 100)
 BLUE = (100, 100, 255)
 YELLOW = (255, 255, 0)
 LIGHT_BLUE = (150, 150, 255)
+BROWN = (139, 69, 19)
+GOLD = (255, 215, 0)
 
 # --- LEVELS DATA ---
 LEVEL_FOLDER = "levels"
@@ -76,31 +90,35 @@ def event_handler():
 
 # --- LOAD LEVEL ---
 def load_level(level):
+    global g_walls
+    global g_boxes
+    global g_goals
+    global g_player
+    global g_rows
+    global g_cols
+    
     filename = os.path.join(LEVEL_FOLDER, f"level{level}.txt")
     with open(filename, "r") as f:
         lines = [line.rstrip("\n") for line in f]
-
-    walls, boxes, goals = set(), set(), set()
-    player = None
 
     for i, row in enumerate(lines):
         for j, cell in enumerate(row):
             pos = (j, i)
             if cell == "#":
-                walls.add(pos)
+                g_walls.add(pos)
             elif cell == "$":
-                boxes.add(pos)
+                g_boxes.add(pos)
             elif cell == "@":
-                player = pos
+                g_player = pos
             elif cell == ".":
-                goals.add(pos)
+                g_goals.add(pos)
             elif cell == "*":
-                goals.add(pos)
-                boxes.add(pos)
+                g_goals.add(pos)
+                g_boxes.add(pos)
             elif cell == "+":
-                goals.add(pos)
-                player = pos
-    return walls, boxes, goals, player, len(lines), (max(len(line) for line in lines))
+                g_goals.add(pos)
+                g_player = pos
+    g_rows, g_cols = len(lines), (max(len(line) for line in lines))
 
 # --- SAVE SOLUTION ---
 def save_solution(path):
@@ -127,17 +145,20 @@ def render_move():
 
     # Goals
     for (x, y) in g_goals:
-        pygame.draw.circle(g_screen, YELLOW, (x*TILE_SIZE+TILE_SIZE//2, y*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//6)
+        pygame.draw.circle(g_screen, GOLD, (x*TILE_SIZE+TILE_SIZE//2, y*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//6)
 
     # Boxes
     for (x, y) in g_boxes:
-        pygame.draw.rect(g_screen, BLUE, (x*TILE_SIZE+8, y*TILE_SIZE+8, TILE_SIZE-16, TILE_SIZE-16))
+        if (x, y) in g_goals:
+            pygame.draw.rect(g_screen, GREEN, (x*TILE_SIZE+8, y*TILE_SIZE+8, TILE_SIZE-16, TILE_SIZE-16))
+            continue
+        pygame.draw.rect(g_screen, BROWN, (x*TILE_SIZE+8, y*TILE_SIZE+8, TILE_SIZE-16, TILE_SIZE-16))
 
     # Player
     if g_player is None:
         print("render_move: player is None — check level file for player '@' or '+' marker")
         return
-    pygame.draw.circle(g_screen, RED, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
+    pygame.draw.circle(g_screen, BLUE, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
 
 # --- TEXT DRAWING ---
 def draw_text(text, font, color, surface, x, y):
@@ -149,6 +170,7 @@ def draw_text(text, font, color, surface, x, y):
 def render_main_menu():
     global g_render_state
     global g_click
+    global g_current_level_index
     
     g_screen.fill(WHITE)
 
@@ -164,15 +186,93 @@ def render_main_menu():
             g_click = False
             if text == "Play":
                 g_render_state = RENDER_LEVEL_SELECT
+                g_current_level_index = 0
             elif text == "Help":
                 g_render_state = RENDER_HELP
             elif text == "Exit":
                 pygame.quit()
                 sys.exit()
 
+# --- LOAD LEVEL PREVIEW ---
+def load_level_preview(filename):
+    with open(os.path.join(LEVEL_FOLDER, filename), "r") as f:
+        lines = [line.rstrip("\n") for line in f]
+    return lines
+
+# --- DRAW LEVEL PREVIEW ---
+def draw_level_preview(level_data, x, y, tile_size=PREVIEW_TILE_SIZE):
+    for row_idx, row in enumerate(level_data):
+        for col_idx, ch in enumerate(row):
+            rect = pygame.Rect(x + col_idx * tile_size, y + row_idx * tile_size, tile_size, tile_size)
+            if ch == '#':
+                pygame.draw.rect(g_screen, GRAY, rect) # Wall
+            elif ch == '$':
+                pygame.draw.rect(g_screen, BROWN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4))  # Brown box
+            elif ch == '.':
+                pygame.draw.circle(g_screen, GOLD, rect.center, tile_size // 2 - 8) # Goal
+            elif ch == '@':
+                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player
+            elif ch == '*':
+                pygame.draw.rect(g_screen, GREEN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4)) # Box on goal
+            elif ch == '+':
+                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player on goal
+
 # --- RENDER LEVEL SELECT ---
 def render_level_select():
-    pass
+    global g_current_level_index
+    global g_render_state
+    global g_click
+    global g_screen
+    
+    g_screen.fill(WHITE)
+    mouse_pos = pygame.mouse.get_pos()
+
+    for text, rect in level_select_buttons.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+
+        # Kiểm tra click
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "ENTER":
+                print("Loading level")
+                # g_render_state = PLAY
+                g_render_state = RENDER_PLAYING
+                load_level(g_current_level_index + 1)
+                g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE))
+                return
+            if text == "SOLUTION":
+                # print("Solving animation")
+                g_render_state = RENDER_SOLVING
+                load_level(g_current_level_index + 1)
+                g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE))
+                return
+            elif text == "<":
+                g_current_level_index = (g_current_level_index - 1) % len(g_levels)
+            elif text == ">":
+                g_current_level_index = (g_current_level_index + 1) % len(g_levels)
+
+    # --- Display level ---
+    if g_levels:
+        level_data = load_level_preview(g_levels[g_current_level_index])
+        level_name = g_levels[g_current_level_index].replace(".txt", "")
+        txt = g_font.render(level_name, True, BLACK)
+        g_screen.blit(txt, (SCREEN_WIDTH//2 - txt.get_width()//2, 50))
+
+        # Render map preview
+        tile_size = 24
+        rows = len(level_data)
+        cols = max(len(line) for line in level_data)
+
+        # Calculate render position
+        map_width = cols * tile_size
+        map_height = rows * tile_size
+        start_x = (SCREEN_WIDTH - map_width) // 2
+        start_y = (SCREEN_HEIGHT - map_height) // 2 - 50
+
+        # Render map preview in center
+        draw_level_preview(level_data, start_x, start_y, tile_size)
 
 # --- RENDER PLAY ---
 def render_playing():
@@ -270,7 +370,7 @@ def render_state_machine():
     if g_render_state == RENDER_MAIN_MENU:
         render_main_menu()
     elif g_render_state == RENDER_LEVEL_SELECT:
-        pass
+        render_level_select()
     elif g_render_state == RENDER_PLAYING:
         render_playing()
     elif g_render_state == RENDER_SOLVING:
@@ -279,6 +379,24 @@ def render_state_machine():
         render_solving_anim()
     elif g_render_state == RENDER_HELP:
         pass
+
+# --- TRACK LEVEL ---
+def track_level():
+    global g_levels
+    
+    files = [f for f in os.listdir(LEVEL_FOLDER) if f.endswith('.txt')]
+    
+    def _level_key(fname):
+        name = fname
+        if name.lower().startswith('level') and name.lower().endswith('.txt'):
+            num_part = name[5:-4]  # strip 'level' and '.txt'
+            try:
+                return (0, int(num_part))
+            except Exception:
+                pass
+        return (1, name)
+
+    g_levels = sorted(files, key=_level_key)
 
 # --- INIT GAME ---
 def init_game():
@@ -293,8 +411,9 @@ def init_game():
     g_screen = pygame.display.set_mode((800, 600))
     g_font = pygame.font.SysFont("arial", 24)
     pygame.display.set_caption("Sokoban - Pygame version")
-    g_levels = sorted([f for f in os.listdir(LEVEL_FOLDER) if f.endswith(".txt")])
-    
+
+    track_level()
+
 # --- GAME LOOP ---
 def main():
     
@@ -311,7 +430,7 @@ def main():
     global g_cols
 
     # Mock level testing
-    g_walls, g_boxes, g_goals, g_player, g_rows, g_cols = load_level(g_current_level)
+    # g_walls, g_boxes, g_goals, g_player, g_rows, g_cols = load_level(g_current_level)
 
     # Create window
     # screen = pygame.display.set_mode((cols*TILE_SIZE, rows*TILE_SIZE))
