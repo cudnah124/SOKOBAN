@@ -1,8 +1,5 @@
-import argparse
 import pygame
 import os
-import sys
-import time
 
 from src.solve import solve
 
@@ -243,6 +240,7 @@ def render_state_machine():
     elif g_render_state == RENDER_HELP:
         pass
 
+# --- INIT GAME ---
 def init_game():
     global g_render_state
     global g_levels
@@ -262,12 +260,6 @@ def main():
     
     # Initialize game
     init_game()
-    
-    # parser = argparse.ArgumentParser(description="Simple Sokoban Game")
-    # parser.add_argument("--level", type=int, default=1, help="Level number to load")
-    # parser.add_argument("--solve", type=int, default=0, help="Auto-solve the level (1 to enable)")
-    # args = parser.parse_args()
-    # g_level = args.level
     
     clock = pygame.time.Clock()
 
@@ -289,65 +281,11 @@ def main():
         clock.tick(FPS)
         running = event_handler()
         render_state_machine()
-        ##################################################################
-        # --- Event ---
-        # for event in pygame.event.get():
-        #     if event.type == pygame.QUIT:
-        #         pygame.quit()
-        #         sys.exit()
-        #     elif event.type == pygame.KEYDOWN:
-        #         dx, dy = 0, 0
-        #         if event.key == pygame.K_UP:
-        #             dx, dy = 0, -1
-        #         elif event.key == pygame.K_DOWN:
-        #             dx, dy = 0, 1
-        #         elif event.key == pygame.K_LEFT:
-        #             dx, dy = -1, 0
-        #         elif event.key == pygame.K_RIGHT:
-        #             dx, dy = 1, 0
-
-        #         if dx != 0 or dy != 0:
-        #             new_pos = (player[0] + dx, player[1] + dy)
-
-        #             # Nếu đụng tường thì bỏ qua
-        #             if new_pos in walls:
-        #                 continue
-
-        #             # Nếu gặp thùng
-        #             if new_pos in boxes:
-        #                 box_new_pos = (new_pos[0] + dx, new_pos[1] + dy)
-        #                 # Nếu sau thùng có tường hoặc thùng khác thì không đẩy được
-        #                 if box_new_pos in walls or box_new_pos in boxes:
-        #                     continue
-        #                 # Đẩy thùng
-        #                 boxes.remove(new_pos)
-        #                 boxes.add(box_new_pos)
-
-        #             # Di chuyển người chơi (only if not animating)
-        #             if anim_path is None:
-        #                 player = new_pos
-                        
-        # # --- Animation update (if we have a solution path) ---
-        # if anim_path is not None:
-        #     now = pygame.time.get_ticks()
-        #     if now - anim_last_time >= ANIM_DELAY_MS:
-        #         anim_last_time = now
-        #         anim_index += 1
-        #         if anim_index < len(anim_path):
-        #             s = anim_path[anim_index]
-        #             player = s.player
-        #             boxes = set(s.boxes)
-        #         else:
-        #             # finished animation
-        #             print("---Animation finished---")
-        #             anim_path = None
-
 
         # # --- Check winning ---
         if all(box in g_goals for box in g_boxes) and g_render_state == RENDER_PLAYING:
             print("---You Win!---")
             running = False
-        ##################################################################
         pygame.display.flip()
 
     # Thoát game
