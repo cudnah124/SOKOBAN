@@ -206,6 +206,7 @@ def render_main_menu():
     global g_render_state
     global g_click
     global g_current_level_index
+    global g_screen
     
     g_screen.fill(WHITE)
 
@@ -424,7 +425,39 @@ def render_solving_anim():
 
 # --- RENDER HELP ---
 def render_help():
-    pass
+    global g_render_state
+    global g_screen
+    global g_click
+    
+    g_screen.fill(WHITE)
+    # Draw help text
+    lines = [
+        "Sokoban - Help",
+        "",
+        "Controls:",
+        "  Arrow keys - move player",
+        "  Click 'Play' to start a level",
+        "  Click 'Help' to see this screen",
+        "",
+        "Solver:",
+        "  Choose an algorithm from the SOLUTION menu to run the solver",
+    ]
+    start_y = 60
+    for i, ln in enumerate(lines):
+        draw_text(ln, g_font, BLACK, g_screen, SCREEN_WIDTH//2, start_y + i*30)
+
+    # Place BACK button inside the visible window (below the help text)
+    back_button = { "BACK": pygame.Rect((SCREEN_WIDTH)//2 - 75, SCREEN_HEIGHT - 80, 170, 50)}
+    mouse_pos = pygame.mouse.get_pos()
+    for text, rect in back_button.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+        
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "BACK":
+                g_render_state = RENDER_MAIN_MENU
 
 # --- RENDER STATE MACHINE ---
 def render_state_machine():
@@ -441,7 +474,7 @@ def render_state_machine():
     elif g_render_state == RENDER_SOLVING_ANIM:
         render_solving_anim()
     elif g_render_state == RENDER_HELP:
-        pass
+        render_help()
 
 # --- TRACK LEVEL ---
 def track_level():
