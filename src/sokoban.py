@@ -491,6 +491,8 @@ def main():
     global g_player
     global g_rows
     global g_cols
+    global g_render_state
+    global g_screen
 
     # Mock level testing
     # g_walls, g_boxes, g_goals, g_player, g_rows, g_cols = load_level(g_current_level)
@@ -507,7 +509,8 @@ def main():
         # # --- Check winning ---
         if all(box in g_goals for box in g_boxes) and g_render_state == RENDER_PLAYING:
             print("---You Win!---")
-            running = False
+            g_render_state = RENDER_LEVEL_SELECT
+            g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.flip()
 
     # Thoát game
