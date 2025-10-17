@@ -22,6 +22,18 @@ g_render_state = -1
 g_screen = None
 g_font = None
 
+# --- LEVELS DATA ---
+LEVEL_FOLDER = "levels"
+g_solution_dir = ".\solutions"
+g_levels = None
+g_current_level = 1
+g_walls = set()
+g_boxes = set()
+g_goals = set()
+g_player = None
+g_rows = 0
+g_cols = 0
+
 # --- MAIN MENU BUTTONS ---
 main_menu_buttons = {
     "Play": pygame.Rect(SCREEN_WIDTH/2 - 100, 150, 200, 60),
@@ -31,7 +43,7 @@ main_menu_buttons = {
 
 # --- LEVEL SELECT BUTTONS ---
 level_select_buttons = {
-    "ENTER": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT - 130, 170, 50),
+    "PLAY": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT - 130, 170, 50),
     "SOLUTION": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT - 70, 170, 50),
     "<": pygame.Rect(50, SCREEN_HEIGHT - 100, 100, 50),
     ">": pygame.Rect(SCREEN_WIDTH - 150, SCREEN_HEIGHT - 100, 100, 50)
@@ -56,18 +68,6 @@ YELLOW = (255, 255, 0)
 LIGHT_BLUE = (150, 150, 255)
 BROWN = (139, 69, 19)
 GOLD = (255, 215, 0)
-
-# --- LEVELS DATA ---
-LEVEL_FOLDER = "levels"
-g_solution_dir = ".\solutions"
-g_levels = None
-g_current_level = 1
-g_walls = set()
-g_boxes = set()
-g_goals = set()
-g_player = None
-g_rows = 0
-g_cols = 0
 
 # --- HANDLE EVENT ---
 g_key_pressed = None
@@ -97,6 +97,13 @@ def load_level(level):
     global g_rows
     global g_cols
     
+    g_walls.clear()
+    g_boxes.clear()
+    g_goals.clear()
+    g_player = None
+    g_rows = 0
+    g_cols = 0
+
     filename = os.path.join(LEVEL_FOLDER, f"level{level}.txt")
     with open(filename, "r") as f:
         lines = [line.rstrip("\n") for line in f]
@@ -136,6 +143,11 @@ def save_solution(path):
 
 # --- RENDER MOVE ---
 def render_move():
+    global g_render_state
+    global g_current_level_index
+    global g_click
+    global g_screen
+    
     # --- Render ---
     g_screen.fill(WHITE)
 
@@ -159,6 +171,20 @@ def render_move():
         print("render_move: player is None — check level file for player '@' or '+' marker")
         return
     pygame.draw.circle(g_screen, BLUE, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
+
+    back_button = { "BACK": pygame.Rect((g_cols*TILE_SIZE)//2 - 75, (g_rows*TILE_SIZE) + 10, 170, 50)}
+    mouse_pos = pygame.mouse.get_pos()
+    for text, rect in back_button.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+        
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "BACK":
+                g_render_state = RENDER_LEVEL_SELECT
+                g_current_level_index = 0
+                g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # --- TEXT DRAWING ---
 def draw_text(text, font, color, surface, x, y):
@@ -235,12 +261,12 @@ def render_level_select():
         # Kiểm tra click
         if g_click and rect.collidepoint(mouse_pos):
             g_click = False
-            if text == "ENTER":
+            if text == "PLAY":
                 print("Loading level")
                 # g_render_state = PLAY
                 g_render_state = RENDER_PLAYING
                 load_level(g_current_level_index + 1)
-                g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE))
+                g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE + 70))
                 return
             if text == "SOLUTION":
                 # print("Solving animation")
@@ -331,7 +357,7 @@ def render_solving():
         anim_index = 0
         anim_last_time = pygame.time.get_ticks()
         g_render_state = RENDER_SOLVING_ANIM
-        g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE))
+        g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE + 70))
     else:
         print("No solution found.")
 
