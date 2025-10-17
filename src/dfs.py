@@ -1,6 +1,15 @@
-from src.state import State
-from src.state import DIRS
+DIRS = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # up, down, left, right
 
+class State:
+    def __init__(self, player, boxes):
+        self.player = player
+        self.boxes = frozenset(boxes) 
+    
+    def __eq__(self, other):
+        return self.player == other.player and self.boxes == other.boxes
+    
+    def __hash__(self):
+        return hash((self.player, self.boxes))
 g_goals = set()
 
 def get_next_states(state, walls):
@@ -44,7 +53,6 @@ def is_deadlock(box_pos, walls):
     if (bx + 1, by) in walls and (bx, by + 1) in walls:
         return True
         
-
 def dfs(start_state, walls, goals):
     stack = [(start_state, [start_state])]
     visited = set([start_state])

@@ -15,9 +15,10 @@ ANIM_DELAY_MS = 200
 RENDER_MAIN_MENU = 0
 RENDER_LEVEL_SELECT = 1
 RENDER_PLAYING = 2
-RENDER_SOLVING = 3
-RENDER_SOLVING_ANIM = 4
-RENDER_HELP = 5
+RENDER_ALGORITHM_SELECTION = 3
+RENDER_SOLVING = 4
+RENDER_SOLVING_ANIM = 5
+RENDER_HELP = 6
 g_render_state = -1
 g_screen = None
 g_font = None
@@ -51,6 +52,15 @@ level_select_buttons = {
 
 # --- LEVEL SELECT VARIABLES ---
 g_current_level_index = 0
+
+# --- SOLVING ALGORITHM SELECTION ---
+DFS = 0
+ASTAR = 1
+g_selected_algorithm = None
+solving_algorithm_buttons = {
+    "DFS": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT//2 - 100, 170, 50),
+    "A*": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT//2 - 40, 170, 50)
+}
 
 # --- SOLVING ANIMATION VARIABLES ---
 anim_path = None
@@ -261,17 +271,13 @@ def render_level_select():
         if g_click and rect.collidepoint(mouse_pos):
             g_click = False
             if text == "PLAY":
-                print("Loading level")
                 # g_render_state = PLAY
                 g_render_state = RENDER_PLAYING
                 load_level(g_current_level_index + 1)
                 g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE + 70))
                 return
             if text == "SOLUTION":
-                # print("Solving animation")
-                g_render_state = RENDER_SOLVING
-                load_level(g_current_level_index + 1)
-                g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE))
+                g_render_state = RENDER_ALGORITHM_SELECTION
                 return
             elif text == "<":
                 g_current_level_index = (g_current_level_index - 1) % len(g_levels)
@@ -348,7 +354,7 @@ def render_solving():
     global g_screen
     
     # compute solution path (list of State)
-    path = solve(g_walls, g_player, g_boxes, g_goals)
+    path = solve(g_walls, g_player, g_boxes, g_goals, g_selected_algorithm)
     if path:
         print("Solved! Steps:", len(path)-1)
         save_solution(path)
@@ -359,6 +365,36 @@ def render_solving():
         g_screen = pygame.display.set_mode((g_cols*TILE_SIZE, g_rows*TILE_SIZE + 70))
     else:
         print("No solution found.")
+
+# --- RENDER SELECT SOLVING ALGORITHM ---
+def render_select_solving_algorithm():
+    global g_current_level_index
+    global g_render_state
+    global g_click
+    global g_screen
+    global g_selected_algorithm
+    
+    g_screen.fill(WHITE)
+    mouse_pos = pygame.mouse.get_pos()
+    
+    for text, rect in solving_algorithm_buttons.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+
+        # Kiểm tra click
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "DFS":
+                g_render_state = RENDER_SOLVING
+                g_selected_algorithm = DFS
+                load_level(g_current_level_index + 1)
+                return
+            if text == "A*":
+                g_render_state = RENDER_SOLVING
+                g_selected_algorithm = ASTAR
+                load_level(g_current_level_index + 1)
+                return
 
 # --- RENDER SOLVING ANIM ---
 def render_solving_anim():
@@ -398,6 +434,8 @@ def render_state_machine():
         render_level_select()
     elif g_render_state == RENDER_PLAYING:
         render_playing()
+    elif g_render_state == RENDER_ALGORITHM_SELECTION:
+        render_select_solving_algorithm()
     elif g_render_state == RENDER_SOLVING:
         render_solving()
     elif g_render_state == RENDER_SOLVING_ANIM:

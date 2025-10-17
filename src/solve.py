@@ -1,21 +1,31 @@
 from src.dfs import dfs
+from src.dfs import State
 
-from src.state import State
 import time
-import sys
 import os
 import psutil
 
-def solve(walls, player, boxes, goals):
+METHOD_DFS = 0
+METHOD_ASTAR = 1
+
+def solve(walls, player, boxes, goals, method=METHOD_DFS):
 
     proc = psutil.Process(os.getpid())
     before_mem = proc.memory_info().rss
     start_state = State(player, boxes)
     start_time = time.perf_counter()
 
-    # dfs solution
-    path = dfs(start_state, walls, goals)
-    
+    path = None
+    if method == METHOD_DFS:
+        path = dfs(start_state, walls, goals)
+    elif method == METHOD_ASTAR:
+        # CALL A* SOLVER HERE
+        # Ex: path = astar(start_state, walls, goals)
+        # start_state: initial state of the game
+        # walls: set of wall positions
+        # goals: set of goal positions
+        pass
+
     end_time = time.perf_counter()
     after_mem = proc.memory_info().rss
     
