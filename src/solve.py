@@ -23,5 +23,5 @@ def solve(walls, player, boxes, goals):
     memory_used = after_mem - before_mem
     
     print(f"Time taken: {elapsed_time:.3f} seconds")
-    print(f"RSS before: {before_mem} KB, after: {after_mem} KB, delta: {(memory_used)} KB")
+    print(f"RSS before: {before_mem} Bytes, after: {after_mem} Bytes, delta: {(memory_used)} Bytes")
     return path
