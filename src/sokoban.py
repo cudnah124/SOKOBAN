@@ -1,9 +1,11 @@
 import pygame
 import os
+import sys
 
 from src.solve import solve
 
 # --- CONFIG ---
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 TILE_SIZE = 64
 FPS = 60
 ANIM_DELAY_MS = 200
@@ -19,6 +21,13 @@ g_render_state = -1
 g_screen = None
 g_font = None
 
+# --- MAIN MENU BUTTONS ---
+main_menu_buttons = {
+    "Play": pygame.Rect(SCREEN_WIDTH/2 - 100, 150, 200, 60),
+    "Help": pygame.Rect(SCREEN_WIDTH/2 - 100, 250, 200, 60),
+    "Exit": pygame.Rect(SCREEN_WIDTH/2 - 100, 350, 200, 60),
+}
+
 # --- SOLVING ANIMATION VARIABLES ---
 anim_path = None
 anim_index = 0
@@ -32,6 +41,7 @@ RED = (255, 100, 100)
 GREEN = (100, 255, 100)
 BLUE = (100, 100, 255)
 YELLOW = (255, 255, 0)
+LIGHT_BLUE = (150, 150, 255)
 
 # --- LEVELS DATA ---
 LEVEL_FOLDER = "levels"
@@ -45,19 +55,23 @@ g_player = None
 g_rows = 0
 g_cols = 0
 
-# --- HANDLE KEY PRESS ---
+# --- HANDLE EVENT ---
 g_key_pressed = None
+g_click = False
 
 # --- EVENT HANDLER ---
 def event_handler():
     global g_key_pressed
+    global g_click
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
-        elif event.type == pygame.KEYDOWN and g_render_state == RENDER_PLAYING:
+        if event.type == pygame.KEYDOWN and g_render_state == RENDER_PLAYING:
             g_key_pressed = event.key
             return True
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            g_click = True
     return True
 
 # --- LOAD LEVEL ---
@@ -77,7 +91,6 @@ def load_level(level):
             elif cell == "$":
                 boxes.add(pos)
             elif cell == "@":
-                print("Found player at", pos)
                 player = pos
             elif cell == ".":
                 goals.add(pos)
@@ -125,10 +138,37 @@ def render_move():
         print("render_move: player is None — check level file for player '@' or '+' marker")
         return
     pygame.draw.circle(g_screen, RED, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
-    
+
+# --- TEXT DRAWING ---
+def draw_text(text, font, color, surface, x, y):
+    textobj = font.render(text, True, color)
+    textrect = textobj.get_rect(center=(x, y))
+    surface.blit(textobj, textrect)
+
 # --- RENDER MAIN MENU ---
 def render_main_menu():
-    pass
+    global g_render_state
+    global g_click
+    
+    g_screen.fill(WHITE)
+
+    mouse_pos = pygame.mouse.get_pos()
+
+    for text, rect in main_menu_buttons.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+
+        # Kiểm tra click
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "Play":
+                g_render_state = RENDER_LEVEL_SELECT
+            elif text == "Help":
+                g_render_state = RENDER_HELP
+            elif text == "Exit":
+                pygame.quit()
+                sys.exit()
 
 # --- RENDER LEVEL SELECT ---
 def render_level_select():
@@ -228,7 +268,7 @@ def render_help():
 # --- RENDER STATE MACHINE ---
 def render_state_machine():
     if g_render_state == RENDER_MAIN_MENU:
-        pass
+        render_main_menu()
     elif g_render_state == RENDER_LEVEL_SELECT:
         pass
     elif g_render_state == RENDER_PLAYING:
@@ -249,7 +289,7 @@ def init_game():
     
     pygame.init()
     
-    g_render_state = RENDER_PLAYING
+    g_render_state = RENDER_MAIN_MENU
     g_screen = pygame.display.set_mode((800, 600))
     g_font = pygame.font.SysFont("arial", 24)
     pygame.display.set_caption("Sokoban - Pygame version")
