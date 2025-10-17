@@ -183,7 +183,6 @@ def render_move():
             g_click = False
             if text == "BACK":
                 g_render_state = RENDER_LEVEL_SELECT
-                g_current_level_index = 0
                 g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # --- TEXT DRAWING ---
