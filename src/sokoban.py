@@ -34,6 +34,8 @@ g_goals = set()
 g_player = None
 g_rows = 0
 g_cols = 0
+map_width = 0
+map_height = 0
 
 # --- MAIN MENU BUTTONS ---
 main_menu_buttons = {
@@ -259,7 +261,9 @@ def render_level_select():
     global g_render_state
     global g_click
     global g_screen
-    
+    global map_width
+    global map_height
+
     g_screen.fill(WHITE)
     mouse_pos = pygame.mouse.get_pos()
 
@@ -353,9 +357,10 @@ def render_solving():
     global anim_index
     global anim_last_time
     global g_screen
-    
+    global map_height
+    global map_width
     # compute solution path (list of State)
-    path = solve(g_walls, g_player, g_boxes, g_goals, g_selected_algorithm)
+    path = solve(g_walls, g_player, g_boxes, g_goals, map_width, map_height, g_selected_algorithm)
     if path:
         print("Solved! Steps:", len(path)-1)
         save_solution(path)

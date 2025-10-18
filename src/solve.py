@@ -1,5 +1,5 @@
-from src.dfs import dfs
-from src.dfs import State
+from src.dfs import State, dfs
+from src.astar import astar_solve
 
 import time
 import os
@@ -8,7 +8,7 @@ import psutil
 METHOD_DFS = 0
 METHOD_ASTAR = 1
 
-def solve(walls, player, boxes, goals, method=METHOD_DFS):
+def solve(walls, player, boxes, goals, map_width, map_height, method=METHOD_DFS):
 
     proc = psutil.Process(os.getpid())
     before_mem = proc.memory_info().rss
@@ -20,12 +20,7 @@ def solve(walls, player, boxes, goals, method=METHOD_DFS):
         path = dfs(start_state, walls, goals)
     elif method == METHOD_ASTAR:
         # CALL A* SOLVER HERE
-        # Ex: path = astar(start_state, walls, goals)
-        # start_state: initial state of the game
-        # walls: set of wall positions
-        # goals: set of goal positions
-        pass
-
+        path = astar_solve(start_state, walls, goals, map_width, map_height, heuristic_name="relaxation")
     end_time = time.perf_counter()
     after_mem = proc.memory_info().rss
     
