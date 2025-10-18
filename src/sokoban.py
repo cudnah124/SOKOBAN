@@ -374,6 +374,7 @@ def render_select_solving_algorithm():
     global g_click
     global g_screen
     global g_selected_algorithm
+    global g_current_level
     
     g_screen.fill(WHITE)
     mouse_pos = pygame.mouse.get_pos()
@@ -389,11 +390,13 @@ def render_select_solving_algorithm():
             if text == "DFS":
                 g_render_state = RENDER_SOLVING
                 g_selected_algorithm = DFS
+                g_current_level = g_current_level_index + 1
                 load_level(g_current_level_index + 1)
                 return
             if text == "A*":
                 g_render_state = RENDER_SOLVING
                 g_selected_algorithm = ASTAR
+                g_current_level = g_current_level_index + 1
                 load_level(g_current_level_index + 1)
                 return
 
