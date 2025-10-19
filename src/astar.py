@@ -30,7 +30,7 @@ class AStar(Generic[T]):
                  get_neighbors: Callable[[T], List[Tuple[T, str]]],
                  heuristic: Callable[[T], int],
                  state_key: Callable[[T], tuple] = None,
-                 max_depth: int = 1000):
+                 max_depth: int = 1000, epsilon: float = 1.0):
         """
         Initialize A* solver
         
@@ -50,6 +50,7 @@ class AStar(Generic[T]):
         self.max_depth = max_depth
         self.nodes_explored = 0
         self.nodes_expanded = 0
+        self.epsilon = epsilon
     
     def solve(self) -> Optional[List[str]]:
         """
@@ -90,7 +91,7 @@ class AStar(Generic[T]):
                 
                 if next_state_key not in visited:
                     g_score = current_node.g_score + 1
-                    h_score = self.heuristic(next_state)
+                    h_score = self.epsilon * self.heuristic(next_state)
                     next_node = Node(next_state, g_score, h_score, current_node, action)
                     
                     counter += 1
@@ -262,8 +263,10 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
     if heuristic_name == 'relaxation':
         goal_distance_map = precompute_goal_distances(walls, goals, map_width, map_height)
         heuristic_func = lambda state: heuristic_bounded_relaxation(state, goal_distance_map)
+        epsilon = 1.5  # Weight for bounded relaxation
     elif heuristic_name == 'manhattan':
         heuristic_func = heuristic_manhattan
+        epsilon = 1.0  # Standard A*
 
     def is_goal_state(state: State) -> bool:
         return all(box in g_goals for box in state.boxes)
@@ -281,7 +284,8 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
         get_neighbors=get_neighbors,
         heuristic=heuristic_func,
         state_key=state_key,
-        max_depth=500
+        max_depth=500,
+        epsilon=epsilon
     )
     
     # Get solution as list of actions
