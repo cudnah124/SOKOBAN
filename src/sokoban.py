@@ -4,7 +4,6 @@ import sys
 
 from src.solve import solve
 
-
 # --- CONFIG ---
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 PREVIEW_TILE_SIZE = 32
@@ -37,32 +36,6 @@ g_rows = 0
 g_cols = 0
 map_width = 0
 map_height = 0
-g_player_pos = None
-g_player_target = None
-g_box_positions = {} 
-
-
-# === LOAD SPRITES ===
-def load_assets():
-    global player_img, ground_img, goal_img, box_img, wall_img
-
-    # Đường dẫn tới thư mục assets trong src
-    assets_path = os.path.join(os.path.dirname(__file__), "assets")
-
-    if not os.path.exists(assets_path):
-        print("❌ Không tìm thấy thư mục assets tại:", assets_path)
-        sys.exit(1)
-
-    try:
-        player_img = pygame.image.load(os.path.join(assets_path, "player_03.png")).convert_alpha()
-        ground_img = pygame.image.load(os.path.join(assets_path, "ground_04.png")).convert_alpha()
-        goal_img = pygame.image.load(os.path.join(assets_path, "environment_07.png")).convert_alpha()
-        box_img = pygame.image.load(os.path.join(assets_path, "crate_44.png")).convert_alpha()
-        wall_img = pygame.image.load(os.path.join(assets_path, "block_02.png")).convert_alpha()
-        print("✅ Đã nạp thành công tất cả asset!")
-    except Exception as e:
-        print("❌ Lỗi khi nạp asset:", e)
-        sys.exit(1)
 
 # --- MAIN MENU BUTTONS ---
 main_menu_buttons = {
@@ -135,7 +108,7 @@ def load_level(level):
     global g_player
     global g_rows
     global g_cols
-
+    
     g_walls.clear()
     g_boxes.clear()
     g_goals.clear()
@@ -165,11 +138,6 @@ def load_level(level):
                 g_goals.add(pos)
                 g_player = pos
     g_rows, g_cols = len(lines), (max(len(line) for line in lines))
-    global g_player_pos, g_player_target
-    g_player_pos = g_player
-    g_player_target = g_player
-    global g_box_positions
-    g_box_positions = {b: b for b in g_boxes}
 
 # --- SAVE SOLUTION ---
 def save_solution(path):
@@ -187,37 +155,47 @@ def save_solution(path):
 
 # --- RENDER MOVE ---
 def render_move():
+    global g_render_state
+    global g_current_level_index
+    global g_click
     global g_screen
+    
+    # --- Render ---
+    g_screen.fill(WHITE)
 
-    # Nền (đất)
-    for y in range(g_rows):
-        for x in range(g_cols):
-            g_screen.blit(pygame.transform.scale(ground_img, (TILE_SIZE, TILE_SIZE)),
-                          (x*TILE_SIZE, y*TILE_SIZE))
-
-    # Tường
+    # Walls
     for (x, y) in g_walls:
-        g_screen.blit(pygame.transform.scale(wall_img, (TILE_SIZE, TILE_SIZE)),
-                      (x*TILE_SIZE, y*TILE_SIZE))
+        pygame.draw.rect(g_screen, GRAY, (x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE))
 
-    # Đích (goal)
+    # Goals
     for (x, y) in g_goals:
-        g_screen.blit(pygame.transform.scale(goal_img, (TILE_SIZE, TILE_SIZE)),
-                      (x*TILE_SIZE, y*TILE_SIZE))
+        pygame.draw.circle(g_screen, GOLD, (x*TILE_SIZE+TILE_SIZE//2, y*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//6)
 
-    # Hộp (box)
-    for box in g_boxes:
-        bx, by = g_box_positions.get(box, box)
-        g_screen.blit(pygame.transform.scale(box_img, (TILE_SIZE, TILE_SIZE)),
-                  (bx*TILE_SIZE, by*TILE_SIZE))
+    # Boxes
+    for (x, y) in g_boxes:
+        if (x, y) in g_goals:
+            pygame.draw.rect(g_screen, GREEN, (x*TILE_SIZE+8, y*TILE_SIZE+8, TILE_SIZE-16, TILE_SIZE-16))
+            continue
+        pygame.draw.rect(g_screen, BROWN, (x*TILE_SIZE+8, y*TILE_SIZE+8, TILE_SIZE-16, TILE_SIZE-16))
 
+    # Player
+    if g_player is None:
+        print("render_move: player is None — check level file for player '@' or '+' marker")
+        return
+    pygame.draw.circle(g_screen, BLUE, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
 
-    # Nhân vật
-    if g_player_pos:
-        g_screen.blit(pygame.transform.scale(player_img, (TILE_SIZE, TILE_SIZE)),
-                  (g_player_pos[0]*TILE_SIZE, g_player_pos[1]*TILE_SIZE))
-
-
+    back_button = { "BACK": pygame.Rect((g_cols*TILE_SIZE)//2 - 75, (g_rows*TILE_SIZE) + 10, 170, 50)}
+    mouse_pos = pygame.mouse.get_pos()
+    for text, rect in back_button.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+        
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            if text == "BACK":
+                g_render_state = RENDER_LEVEL_SELECT
+                g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # --- TEXT DRAWING ---
 def draw_text(text, font, color, surface, x, y):
@@ -334,71 +312,43 @@ def render_level_select():
 
 # --- RENDER PLAY ---
 def render_playing():
-    global g_player, g_boxes, g_key_pressed, g_player_pos, g_player_target
-
+    global g_player
+    global g_boxes
+    global g_key_pressed
+    
     dx, dy = 0, 0
     if g_key_pressed == pygame.K_UP:
-        dy = -1
+        dx, dy = 0, -1
     elif g_key_pressed == pygame.K_DOWN:
-        dy = 1
+        dx, dy = 0, 1
     elif g_key_pressed == pygame.K_LEFT:
-        dx = -1
+        dx, dy = -1, 0
     elif g_key_pressed == pygame.K_RIGHT:
-        dx = 1
+        dx, dy = 1, 0
     g_key_pressed = None
-
-    # Nếu không đang di chuyển, xử lý input
-    if g_player_pos == g_player_target and (dx or dy):
+    
+    if dx != 0 or dy != 0:
         new_pos = (g_player[0] + dx, g_player[1] + dy)
-        if new_pos not in g_walls:
-            if new_pos in g_boxes:
-                new_box = (new_pos[0] + dx, new_pos[1] + dy)
-                if new_box in g_walls or new_box in g_boxes:
-                    return
-                # cập nhật logic hộp
-                g_boxes.remove(new_pos)
-                g_boxes.add(new_box)
 
-                # tạo animation cho hộp đó
-                if new_pos in g_box_positions:
-                    g_box_positions[new_box] = g_box_positions.pop(new_pos)
-                else:
-                    g_box_positions[new_box] = new_box
-                    
-            g_player = new_pos
-            g_player_target = new_pos
+        # If hit wall, ignore
+        if new_pos in g_walls:
+            return
 
-    # Nội suy mượt giữa 2 ô
-    speed = 8  # pixel/frame
-    if g_player_pos != g_player_target:
-        px, py = g_player_pos
-        tx, ty = g_player_target
-        vec_x = (tx - px) * TILE_SIZE
-        vec_y = (ty - py) * TILE_SIZE
-        dist = (vec_x**2 + vec_y**2) ** 0.5
+        # Encounter a box
+        if new_pos in g_boxes:
+            box_new_pos = (new_pos[0] + dx, new_pos[1] + dy)
+            # Check for valid pushes
+            if box_new_pos in g_walls or box_new_pos in g_boxes:
+                return
+            # Push box
+            g_boxes.remove(new_pos)
+            g_boxes.add(box_new_pos)
 
-        if dist < speed:
-            g_player_pos = g_player_target
-        else:
-            step_x = speed * (vec_x / dist)
-            step_y = speed * (vec_y / dist)
-            g_player_pos = (px + step_x / TILE_SIZE, py + step_y / TILE_SIZE)
-        # --- Animation cho hộp ---
-        for box in list(g_box_positions.keys()):
-            bx, by = g_box_positions[box]
-            tx, ty = box
-            vec_x = (tx - bx) * TILE_SIZE
-            vec_y = (ty - by) * TILE_SIZE
-            dist = (vec_x**2 + vec_y**2) ** 0.5
-            if dist < speed:
-                g_box_positions[box] = box
-            else:
-                step_x = speed * (vec_x / dist)
-                step_y = speed * (vec_y / dist)
-                g_box_positions[box] = (bx + step_x / TILE_SIZE, by + step_y / TILE_SIZE)
+        # Move player
+        g_player = new_pos
 
+    # --- Render moves ---
     render_move()
-
 
 # --- RENDER SOLVING ---
 def render_solving():
@@ -567,35 +517,6 @@ def init_game():
     pygame.display.set_caption("Sokoban - Pygame version")
 
     track_level()
-    load_assets()
-    
-def show_level_clear():
-    overlay = pygame.Surface(g_screen.get_size(), pygame.SRCALPHA)
-    overlay.fill((0, 0, 0, 180))  # lớp tối bán trong suốt
-    g_screen.blit(overlay, (0, 0))
-
-    font_big = pygame.font.SysFont("arialblack", 64)
-    text = font_big.render("CLEAR THE STAGE!", True, (255, 223, 0))
-    rect = text.get_rect(center=(g_screen.get_width()//2, g_screen.get_height()//2 - 20))
-    g_screen.blit(text, rect)
-
-    font_small = pygame.font.SysFont("arial", 28)
-    sub = font_small.render("Press any key to continue...", True, (255, 255, 255))
-    sub_rect = sub.get_rect(center=(g_screen.get_width()//2, g_screen.get_height()//2 + 50))
-    g_screen.blit(sub, sub_rect)
-
-    pygame.display.flip()
-
-    waiting = True
-    while waiting:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-                waiting = False
-
-
 
 # --- GAME LOOP ---
 def main():
@@ -625,22 +546,12 @@ def main():
         clock.tick(FPS)
         running = event_handler()
         render_state_machine()
-        if g_render_state == RENDER_PLAYING:
-            all_on_goal = all(box in g_goals for box in g_boxes)
 
-            all_boxes_stopped = all(
-                abs(g_box_positions[box][0] - box[0]) < 0.01 and
-                abs(g_box_positions[box][1] - box[1]) < 0.01
-                for box in g_boxes
-            )
-
-            if all_on_goal and all_boxes_stopped:
-                pygame.display.flip()
-                pygame.time.delay(500)
-                show_level_clear()
-                g_render_state = RENDER_LEVEL_SELECT
-                g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
+        # # --- Check winning ---
+        if all(box in g_goals for box in g_boxes) and g_render_state == RENDER_PLAYING:
+            print("---You Win!---")
+            g_render_state = RENDER_LEVEL_SELECT
+            g_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.flip()
 
     # Thoát game
