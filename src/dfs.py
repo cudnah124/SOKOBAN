@@ -53,7 +53,52 @@ def is_deadlock(box_pos, walls):
     if (bx + 1, by) in walls and (bx, by + 1) in walls:
         return True
         
+class DFS:
+    """DFS algorithm with node tracking"""
+    
+    def __init__(self, start_state, walls, goals):
+        self.start_state = start_state
+        self.walls = walls
+        self.goals = goals
+        self.nodes_explored = 0
+        self.nodes_expanded = 0
+        self.nodes_generated = 1  # Initial state
+    
+    def solve(self):
+        """Solve using DFS algorithm with tracking"""
+        stack = [(self.start_state, [self.start_state])]
+        visited = set([self.start_state])
+        global g_goals
+        g_goals = self.goals
+
+        while stack:
+            state, path = stack.pop()
+            self.nodes_explored += 1
+            
+            if is_goal(state):
+                return path
+
+            # Generate neighbors
+            neighbors = get_next_states(state, self.walls)
+            self.nodes_expanded += 1  # Count as expanded
+            
+            for next_state in neighbors:
+                if next_state not in visited:
+                    visited.add(next_state)
+                    self.nodes_generated += 1
+                    stack.append((next_state, path + [next_state]))
+        return None
+    
+    def get_statistics(self):
+        """Return search statistics"""
+        return {
+            'nodes_explored': self.nodes_explored,
+            'nodes_expanded': self.nodes_expanded,
+            'nodes_generated': self.nodes_generated
+        }
+
 def dfs(start_state, walls, goals):
+    """Original DFS function for backward compatibility"""
     stack = [(start_state, [start_state])]
     visited = set([start_state])
     global g_goals
