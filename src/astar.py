@@ -50,6 +50,7 @@ class AStar(Generic[T]):
         self.max_depth = max_depth
         self.nodes_explored = 0
         self.nodes_expanded = 0
+        self.nodes_generated = 0
         self.epsilon = epsilon
     
     def solve(self) -> Optional[List[str]]:
@@ -60,8 +61,9 @@ class AStar(Generic[T]):
             List of actions to reach goal, or None if no solution found
         """
         counter = 0
-        initial_h = self.heuristic(self.initial_state)
+        initial_h = self.heuristic(self.initial_state, 0)
         start_node = Node(self.initial_state, 0, initial_h)
+        self.nodes_generated = 1  # Count initial node
         
         heap = [(start_node.f_score, counter, start_node)]
         visited: Set[tuple] = set()
@@ -91,10 +93,11 @@ class AStar(Generic[T]):
                 
                 if next_state_key not in visited:
                     g_score = current_node.g_score + 1
-                    h_score = self.epsilon * self.heuristic(next_state)
+                    h_score = self.epsilon * self.heuristic(next_state, g_score)
                     next_node = Node(next_state, g_score, h_score, current_node, action)
                     
                     counter += 1
+                    self.nodes_generated += 1  # Count each generated node
                     heapq.heappush(heap, (next_node.f_score, counter, next_node))
         
         return None  # No solution found
@@ -116,7 +119,8 @@ class AStar(Generic[T]):
         """Return search statistics"""
         return {
             'nodes_explored': self.nodes_explored,
-            'nodes_expanded': self.nodes_expanded
+            'nodes_expanded': self.nodes_expanded,
+            'nodes_generated': self.nodes_generated
         }
 
 
@@ -159,7 +163,7 @@ def precompute_goal_distances(walls: Set[Tuple[int, int]], goals: Set[Tuple[int,
                 
     return goal_distance_map
 
-def heuristic_bounded_relaxation(state: State, goal_distance_map: dict) -> int:
+def heuristic_bounded_relaxation(state: State, goal_distance_map: dict, current_depth: int = 0) -> int:
     """
     Bounded Relaxation Heuristic.
     Sums the pre-computed shortest path cost for each box to its nearest goal.
@@ -174,7 +178,7 @@ def heuristic_bounded_relaxation(state: State, goal_distance_map: dict) -> int:
         total_cost += cost
     return total_cost
 
-def heuristic_manhattan(state: State) -> int:
+def heuristic_manhattan(state: State, current_depth: int = 0) -> int:
     """
     Heuristic function for A*
     Sum of minimum distances from each box to any target
@@ -192,6 +196,19 @@ def heuristic_manhattan(state: State) -> int:
         total_distance += min_dist
     
     return total_distance
+
+def dynamic_heuristic(state: State, goal_distance_map: dict, current_depth: int = 0, max_depth: int = 500) -> int:
+    """
+    Dynamic heuristic that adjusts weight based on depth
+    weight = (1 - d(n))/N if d(n) < N, else 0
+    hd = hn * (1 + epsilon * weight )
+    """
+    base_heuristic = heuristic_bounded_relaxation(state, goal_distance_map, current_depth)
+    if current_depth < max_depth:
+        weight = (1 - current_depth / max_depth)
+        return (1 + weight) * base_heuristic
+    else:
+        return 0
 
 def get_neighbors_with_actions(state: State, walls, goals) -> List[Tuple[State, str]]:
     """Get all possible next states and the actions that produce them"""
@@ -262,10 +279,10 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
     
     if heuristic_name == 'relaxation':
         goal_distance_map = precompute_goal_distances(walls, goals, map_width, map_height)
-        heuristic_func = lambda state: heuristic_bounded_relaxation(state, goal_distance_map)
-        epsilon = 1.5  # Weight for bounded relaxation
+        heuristic_func = lambda state, depth: heuristic_bounded_relaxation(state, goal_distance_map, depth)
+        epsilon = 1.0  # Weight for bounded relaxation
     elif heuristic_name == 'manhattan':
-        heuristic_func = heuristic_manhattan
+        heuristic_func = lambda state, depth: heuristic_manhattan(state, depth)
         epsilon = 1.0  # Standard A*
 
     def is_goal_state(state: State) -> bool:
