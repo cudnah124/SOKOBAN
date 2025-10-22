@@ -1,4 +1,4 @@
-from src.dfs import State, dfs
+from src.dfs import State, dfs_solver
 from src.astar import astar_solve
 
 import time
@@ -17,9 +17,8 @@ def solve(walls, player, boxes, goals, map_width, map_height, method=METHOD_DFS)
 
     path = None
     if method == METHOD_DFS:
-        path = dfs(start_state, walls, goals)
+        path = dfs_solver(start_state, walls, goals)
     elif method == METHOD_ASTAR:
-        # CALL A* SOLVER HERE
         path = astar_solve(start_state, walls, goals, map_width, map_height, heuristic_name="relaxation")
     end_time = time.perf_counter()
     after_mem = proc.memory_info().rss
