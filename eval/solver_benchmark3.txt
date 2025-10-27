@@ -1,0 +1,777 @@
+Level | Algorithm | Time(s) | Steps | MemoryDelta(Bytes) | NodesExplored | NodesExpanded | NodesGenerated | Status
+
+level1.txt | DFS | 0.000679 | 37 | 45056 | 160 | 159 | 171 | OK
+level1.txt | A*_Manhattan | 0.001531 | 32 | 69632 | 226 | 186 | 235 | OK
+level1.txt | A*_Relaxation_1.5 | 0.001455 | 32 | 69632 | 218 | 179 | 225 | OK
+level1.txt | A*_Relaxation_Dynamic | 0.001499 | 32 | 69632 | 218 | 179 | 225 | OK
+
+level2.txt | DFS | 0.023903 | 30 | 790528 | 2687 | 2686 | 2697 | OK
+level2.txt | A*_Manhattan | 0.014412 | 15 | 569344 | 1035 | 837 | 1363 | OK
+level2.txt | A*_Relaxation_1.5 | 0.003783 | 15 | 184320 | 287 | 240 | 397 | OK
+level2.txt | A*_Relaxation_Dynamic | 0.002452 | 15 | 151552 | 238 | 201 | 334 | OK
+
+level3.txt | DFS | 0.002239 | 59 | 114688 | 445 | 444 | 462 | OK
+level3.txt | A*_Manhattan | 0.011788 | 40 | 282624 | 968 | 804 | 1017 | OK
+level3.txt | A*_Relaxation_1.5 | 0.006113 | 40 | 241664 | 753 | 629 | 789 | OK
+level3.txt | A*_Relaxation_Dynamic | 0.007969 | 40 | 237568 | 737 | 615 | 774 | OK
+
+level4.txt | DFS | 0.057667 | 143 | 1241088 | 7396 | 7395 | 7474 | OK
+level4.txt | A*_Manhattan | 0.104736 | 22 | 2711552 | 9994 | 7303 | 10104 | OK
+level4.txt | A*_Relaxation_1.5 | 0.084449 | 22 | 2588672 | 7753 | 5786 | 8600 | OK
+level4.txt | A*_Relaxation_Dynamic | 0.098750 | 22 | 2404352 | 6672 | 5048 | 7653 | OK
+
+level5.txt | DFS | 3.715264 | 2597 | 32858112 | 163074 | 163073 | 164798 | OK
+level5.txt | A*_Manhattan | 3.317451 | 24 | 63295488 | 242225 | 163283 | 244336 | OK
+level5.txt | A*_Relaxation_1.5 | 3.095735 | 24 | 60911616 | 175480 | 122724 | 199107 | OK
+level5.txt | A*_Relaxation_Dynamic | 2.645264 | 24 | 55058432 | 139834 | 99641 | 166448 | OK
+
+level6.txt | DFS | 0.077243 | 321 | 2695168 | 15247 | 15246 | 15370 | OK
+level6.txt | A*_Manhattan | 0.193209 | 106 | 5419008 | 28498 | 22217 | 28506 | OK
+level6.txt | A*_Relaxation_1.5 | 0.222056 | 106 | 5898240 | 28524 | 22206 | 28535 | OK
+level6.txt | A*_Relaxation_Dynamic | 0.225158 | 106 | 5976064 | 28512 | 22198 | 28528 | OK
+
+level7.txt | DFS | 100.366484 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level7.txt | A*_Manhattan | 100.224132 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level7.txt | A*_Relaxation_1.5 | 13.380455 | 25 | 383778816 | 492350 | 389588 | 760396 | OK
+level7.txt | A*_Relaxation_Dynamic | 5.947349 | 25 | 206671872 | 255602 | 203630 | 398909 | OK
+
+level8.txt | DFS | 0.007448 | 169 | 241664 | 852 | 851 | 902 | OK
+level8.txt | A*_Manhattan | 0.028938 | 96 | 647168 | 2140 | 1837 | 2161 | OK
+level8.txt | A*_Relaxation_1.5 | 0.031386 | 96 | 647168 | 2083 | 1794 | 2128 | OK
+level8.txt | A*_Relaxation_Dynamic | 0.033481 | 96 | 561152 | 2099 | 1811 | 2147 | OK
+
+level9.txt | DFS | 0.000665 | 30 | 24576 | 80 | 79 | 91 | OK
+level9.txt | A*_Manhattan | 0.002977 | 29 | 65536 | 189 | 160 | 196 | OK
+level9.txt | A*_Relaxation_1.5 | 0.002971 | 29 | 69632 | 176 | 151 | 187 | OK
+level9.txt | A*_Relaxation_Dynamic | 0.002951 | 29 | 77824 | 173 | 149 | 185 | OK
+
+level10.txt | DFS | 0.027012 | 187 | 565248 | 1956 | 1955 | 2022 | OK
+level10.txt | A*_Manhattan | 0.050407 | 88 | 966656 | 3254 | 2985 | 3254 | OK
+level10.txt | A*_Relaxation_1.5 | 0.062349 | 88 | 1011712 | 3210 | 2948 | 3229 | OK
+level10.txt | A*_Relaxation_Dynamic | 0.058778 | 88 | 983040 | 3175 | 2921 | 3206 | OK
+
+level11.txt | DFS | 0.007118 | 198 | 299008 | 800 | 799 | 869 | OK
+level11.txt | A*_Manhattan | 0.042714 | 77 | 811008 | 2770 | 2252 | 2779 | OK
+level11.txt | A*_Relaxation_1.5 | 0.055783 | 77 | 897024 | 2748 | 2233 | 2759 | OK
+level11.txt | A*_Relaxation_Dynamic | 0.046556 | 77 | 864256 | 2745 | 2230 | 2754 | OK
+
+level12.txt | DFS | 0.005484 | 57 | 184320 | 688 | 687 | 708 | OK
+level12.txt | A*_Manhattan | 0.018533 | 48 | 294912 | 937 | 752 | 989 | OK
+level12.txt | A*_Relaxation_1.5 | 0.017222 | 48 | 237568 | 804 | 649 | 863 | OK
+level12.txt | A*_Relaxation_Dynamic | 0.017246 | 48 | 266240 | 793 | 639 | 847 | OK
+
+level13.txt | DFS | 0.068684 | 239 | 401408 | 2677 | 2676 | 2806 | OK
+level13.txt | A*_Manhattan | 0.120364 | 51 | 1523712 | 6085 | 4737 | 6177 | OK
+level13.txt | A*_Relaxation_1.5 | 0.068135 | 51 | 1097728 | 4194 | 3281 | 4448 | OK
+level13.txt | A*_Relaxation_Dynamic | 0.077339 | 51 | 1069056 | 3428 | 2687 | 3679 | OK
+
+level14.txt | DFS | 0.007370 | 59 | 90112 | 367 | 366 | 379 | OK
+level14.txt | A*_Manhattan | 0.005754 | 50 | 151552 | 490 | 431 | 491 | OK
+level14.txt | A*_Relaxation_1.5 | 0.013042 | 50 | 159744 | 433 | 383 | 447 | OK
+level14.txt | A*_Relaxation_Dynamic | 0.006147 | 50 | 151552 | 414 | 367 | 428 | OK
+
+level15.txt | DFS | 0.001437 | 49 | 53248 | 191 | 190 | 207 | OK
+level15.txt | A*_Manhattan | 0.007826 | 36 | 192512 | 640 | 547 | 652 | OK
+level15.txt | A*_Relaxation_1.5 | 0.007170 | 36 | 196608 | 600 | 518 | 616 | OK
+level15.txt | A*_Relaxation_Dynamic | 0.007513 | 36 | 188416 | 600 | 518 | 616 | OK
+
+level16.txt | DFS | 0.253243 | 228 | 3227648 | 18542 | 18541 | 18661 | OK
+level16.txt | A*_Manhattan | 0.859862 | 99 | 9371648 | 51540 | 37908 | 51664 | OK
+level16.txt | A*_Relaxation_1.5 | 0.961642 | 99 | 10264576 | 50708 | 37508 | 50954 | OK
+level16.txt | A*_Relaxation_Dynamic | 0.964935 | 99 | 10878976 | 49999 | 37017 | 50394 | OK
+
+level17.txt | DFS | 0.008579 | 36 | 229376 | 977 | 976 | 996 | OK
+level17.txt | A*_Manhattan | 0.024628 | 24 | 413696 | 1513 | 1166 | 1588 | OK
+level17.txt | A*_Relaxation_1.5 | 0.022410 | 24 | 380928 | 1193 | 929 | 1302 | OK
+level17.txt | A*_Relaxation_Dynamic | 0.022416 | 24 | 385024 | 1121 | 880 | 1241 | OK
+
+level18.txt | DFS | 0.018326 | 161 | 618496 | 1474 | 1473 | 1539 | OK
+level18.txt | A*_Manhattan | 0.046714 | 70 | 737280 | 2645 | 2105 | 2693 | OK
+level18.txt | A*_Relaxation_1.5 | 0.036994 | 70 | 671744 | 2342 | 1858 | 2395 | OK
+level18.txt | A*_Relaxation_Dynamic | 0.044283 | 70 | 684032 | 2263 | 1793 | 2307 | OK
+
+level19.txt | DFS | 0.004093 | 59 | 131072 | 460 | 459 | 489 | OK
+level19.txt | A*_Manhattan | 0.010321 | 40 | 294912 | 906 | 713 | 929 | OK
+level19.txt | A*_Relaxation_1.5 | 0.010766 | 40 | 266240 | 804 | 634 | 831 | OK
+level19.txt | A*_Relaxation_Dynamic | 0.012295 | 40 | 274432 | 796 | 626 | 815 | OK
+
+level20.txt | DFS | 0.018891 | 126 | 495616 | 1485 | 1484 | 1534 | OK
+level20.txt | A*_Manhattan | 0.035017 | 49 | 663552 | 2159 | 1764 | 2186 | OK
+level20.txt | A*_Relaxation_1.5 | 0.033245 | 49 | 675840 | 2010 | 1644 | 2065 | OK
+level20.txt | A*_Relaxation_Dynamic | 0.053583 | 49 | 667648 | 1973 | 1609 | 2016 | OK
+
+level21.txt | DFS | 0.000623 | 17 | 16384 | 69 | 68 | 73 | OK
+level21.txt | A*_Manhattan | 0.003457 | 16 | 102400 | 238 | 208 | 265 | OK
+level21.txt | A*_Relaxation_1.5 | 0.002773 | 16 | 77824 | 136 | 123 | 156 | OK
+level21.txt | A*_Relaxation_Dynamic | 0.001952 | 16 | 65536 | 128 | 116 | 145 | OK
+
+level22.txt | DFS | 0.066693 | 241 | 757760 | 2373 | 2372 | 2475 | OK
+level22.txt | A*_Manhattan | 0.061488 | 46 | 1028096 | 3505 | 2697 | 3515 | OK
+level22.txt | A*_Relaxation_1.5 | 0.051200 | 46 | 1011712 | 3061 | 2362 | 3126 | OK
+level22.txt | A*_Relaxation_Dynamic | 0.046304 | 46 | 942080 | 2768 | 2140 | 2859 | OK
+
+level23.txt | DFS | 0.002402 | 90 | 69632 | 236 | 235 | 273 | OK
+level23.txt | A*_Manhattan | 0.005189 | 55 | 94208 | 386 | 315 | 394 | OK
+level23.txt | A*_Relaxation_1.5 | 0.006442 | 55 | 98304 | 369 | 301 | 375 | OK
+level23.txt | A*_Relaxation_Dynamic | 0.004851 | 55 | 98304 | 366 | 299 | 375 | OK
+
+level24.txt | DFS | 0.002947 | 51 | 86016 | 328 | 327 | 353 | OK
+level24.txt | A*_Manhattan | 0.016983 | 34 | 299008 | 1040 | 818 | 1076 | OK
+level24.txt | A*_Relaxation_1.5 | 0.009478 | 34 | 245760 | 759 | 609 | 821 | OK
+level24.txt | A*_Relaxation_Dynamic | 0.009084 | 34 | 241664 | 705 | 564 | 747 | OK
+
+level25.txt | DFS | 0.040544 | 128 | 606208 | 2105 | 2104 | 2165 | OK
+level25.txt | A*_Manhattan | 0.029117 | 28 | 311296 | 1805 | 1462 | 2026 | OK
+level25.txt | A*_Relaxation_1.5 | 0.021992 | 28 | 430080 | 1122 | 917 | 1306 | OK
+level25.txt | A*_Relaxation_Dynamic | 0.020822 | 28 | 405504 | 1042 | 854 | 1218 | OK
+
+level26.txt | DFS | 0.021034 | 52 | 495616 | 1646 | 1645 | 1673 | OK
+level26.txt | A*_Manhattan | 0.035618 | 40 | 598016 | 2074 | 1683 | 2139 | OK
+level26.txt | A*_Relaxation_1.5 | 0.028706 | 40 | 561152 | 1716 | 1402 | 1843 | OK
+level26.txt | A*_Relaxation_Dynamic | 0.055744 | 40 | 548864 | 1643 | 1344 | 1771 | OK
+
+level27.txt | DFS | 0.003259 | 72 | 94208 | 380 | 379 | 400 | OK
+level27.txt | A*_Manhattan | 0.008308 | 49 | 221184 | 675 | 609 | 699 | OK
+level27.txt | A*_Relaxation_1.5 | 0.007915 | 49 | 200704 | 581 | 525 | 612 | OK
+level27.txt | A*_Relaxation_Dynamic | 0.007367 | 49 | 176128 | 559 | 505 | 587 | OK
+
+level28.txt | DFS | 0.005500 | 39 | 184320 | 714 | 713 | 734 | OK
+level28.txt | A*_Manhattan | 0.011622 | 32 | 274432 | 845 | 652 | 869 | OK
+level28.txt | A*_Relaxation_1.5 | 0.009249 | 32 | 229376 | 750 | 580 | 774 | OK
+level28.txt | A*_Relaxation_Dynamic | 0.009708 | 32 | 204800 | 732 | 567 | 762 | OK
+
+level29.txt | DFS | 0.033903 | 236 | 401408 | 2174 | 2173 | 2257 | OK
+level29.txt | A*_Manhattan | 0.056669 | 103 | 954368 | 3309 | 2735 | 3338 | OK
+level29.txt | A*_Relaxation_1.5 | 0.047072 | 103 | 966656 | 3138 | 2584 | 3188 | OK
+level29.txt | A*_Relaxation_Dynamic | 0.061137 | 103 | 802816 | 3107 | 2561 | 3163 | OK
+
+level30.txt | DFS | 0.018702 | 95 | 503808 | 1335 | 1334 | 1386 | OK
+level30.txt | A*_Manhattan | 0.019524 | 20 | 339968 | 851 | 684 | 992 | OK
+level30.txt | A*_Relaxation_1.5 | 0.007613 | 20 | 217088 | 522 | 424 | 619 | OK
+level30.txt | A*_Relaxation_Dynamic | 0.007377 | 20 | 196608 | 484 | 394 | 559 | OK
+
+level31.txt | DFS | 0.022658 | 75 | 520192 | 1508 | 1507 | 1543 | OK
+level31.txt | A*_Manhattan | 0.021482 | 16 | 458752 | 1392 | 1124 | 1493 | OK
+level31.txt | A*_Relaxation_1.5 | 0.020359 | 16 | 421888 | 1012 | 836 | 1153 | OK
+level31.txt | A*_Relaxation_Dynamic | 0.018581 | 16 | 376832 | 961 | 787 | 1076 | OK
+
+level32.txt | DFS | 0.001442 | 41 | 45056 | 177 | 176 | 190 | OK
+level32.txt | A*_Manhattan | 0.007366 | 34 | 172032 | 569 | 464 | 575 | OK
+level32.txt | A*_Relaxation_1.5 | 0.006995 | 34 | 151552 | 544 | 444 | 558 | OK
+level32.txt | A*_Relaxation_Dynamic | 0.007222 | 34 | 159744 | 544 | 444 | 558 | OK
+
+level33.txt | DFS | 0.061437 | 105 | 1146880 | 5653 | 5652 | 5695 | OK
+level33.txt | A*_Manhattan | 0.196696 | 40 | 2764800 | 12297 | 9378 | 12319 | OK
+level33.txt | A*_Relaxation_1.5 | 0.179246 | 40 | 2609152 | 9903 | 7714 | 10150 | OK
+level33.txt | A*_Relaxation_Dynamic | 0.168270 | 40 | 2297856 | 8863 | 6933 | 9243 | OK
+
+level34.txt | DFS | 1.429594 | 259 | 8392704 | 41733 | 41732 | 41886 | OK
+level34.txt | A*_Manhattan | 1.832250 | 29 | 15003648 | 56781 | 41685 | 57474 | OK
+level34.txt | A*_Relaxation_1.5 | 1.766216 | 29 | 14258176 | 47268 | 34883 | 50655 | OK
+level34.txt | A*_Relaxation_Dynamic | 1.707318 | 29 | 13504512 | 42373 | 31554 | 46368 | OK
+
+level35.txt | DFS | 0.787199 | 335 | 12767232 | 57792 | 57791 | 57989 | OK
+level35.txt | A*_Manhattan | 3.747993 | 76 | 36589568 | 176788 | 134369 | 178118 | OK
+level35.txt | A*_Relaxation_1.5 | 3.755446 | 76 | 34504704 | 159695 | 121846 | 162648 | OK
+level35.txt | A*_Relaxation_Dynamic | 3.713679 | 76 | 33804288 | 153917 | 117340 | 157198 | OK
+
+level36.txt | DFS | 17.736522 | 5112 | 77180928 | 537609 | 537608 | 540073 | OK
+level36.txt | A*_Manhattan | 24.987657 | 155 | 172679168 | 908182 | 680416 | 908214 | OK
+level36.txt | A*_Relaxation_1.5 | 27.613005 | 155 | 176947200 | 899814 | 676627 | 900469 | OK
+level36.txt | A*_Relaxation_Dynamic | 27.979834 | 155 | 177459200 | 897188 | 675335 | 897961 | OK
+
+level37.txt | DFS | 0.014153 | 215 | 729088 | 2485 | 2484 | 2569 | OK
+level37.txt | A*_Manhattan | 0.061032 | 70 | 1695744 | 7459 | 5892 | 7461 | OK
+level37.txt | A*_Relaxation_1.5 | 0.071514 | 70 | 1818624 | 7377 | 5853 | 7397 | OK
+level37.txt | A*_Relaxation_Dynamic | 0.058373 | 70 | 1814528 | 7281 | 5786 | 7335 | OK
+
+level38.txt | DFS | 0.096968 | 143 | 2998272 | 14819 | 14818 | 14861 | OK
+level38.txt | A*_Manhattan | 0.014999 | 36 | 442368 | 1154 | 1069 | 1228 | OK
+level38.txt | A*_Relaxation_1.5 | 0.013096 | 36 | 409600 | 917 | 840 | 1005 | OK
+level38.txt | A*_Relaxation_Dynamic | 0.016514 | 36 | 454656 | 967 | 891 | 1066 | OK
+
+level39.txt | DFS | 0.014823 | 137 | 532480 | 1912 | 1911 | 1957 | OK
+level39.txt | A*_Manhattan | 0.021543 | 84 | 708608 | 2378 | 2028 | 2430 | OK
+level39.txt | A*_Relaxation_1.5 | 0.017776 | 84 | 688128 | 2237 | 1905 | 2281 | OK
+level39.txt | A*_Relaxation_Dynamic | 0.021407 | 84 | 688128 | 2223 | 1891 | 2261 | OK
+
+level40.txt | DFS | 0.002350 | 46 | 65536 | 244 | 243 | 270 | OK
+level40.txt | A*_Manhattan | 0.017932 | 19 | 397312 | 1272 | 1041 | 1359 | OK
+level40.txt | A*_Relaxation_1.5 | 0.013453 | 19 | 335872 | 785 | 668 | 935 | OK
+level40.txt | A*_Relaxation_Dynamic | 0.012141 | 19 | 335872 | 730 | 619 | 854 | OK
+
+level41.txt | DFS | 0.024691 | 122 | 1044480 | 3917 | 3916 | 3976 | OK
+level41.txt | A*_Manhattan | 0.060559 | 49 | 1437696 | 6405 | 5184 | 6484 | OK
+level41.txt | A*_Relaxation_1.5 | 0.053092 | 49 | 1581056 | 5760 | 4670 | 5916 | OK
+level41.txt | A*_Relaxation_Dynamic | 0.052644 | 49 | 1437696 | 5485 | 4446 | 5657 | OK
+
+level42.txt | DFS | 0.014163 | 126 | 659456 | 2416 | 2415 | 2454 | OK
+level42.txt | A*_Manhattan | 0.033173 | 46 | 1200128 | 4233 | 3496 | 4353 | OK
+level42.txt | A*_Relaxation_1.5 | 0.029952 | 46 | 1077248 | 3618 | 2984 | 3723 | OK
+level42.txt | A*_Relaxation_Dynamic | 0.028691 | 48 | 1126400 | 3690 | 3043 | 3777 | OK
+
+level43.txt | DFS | 0.003361 | 88 | 184320 | 705 | 704 | 753 | OK
+level43.txt | A*_Manhattan | 0.058776 | 60 | 1884160 | 9250 | 6920 | 9283 | OK
+level43.txt | A*_Relaxation_1.5 | 0.065838 | 60 | 1896448 | 8873 | 6696 | 8984 | OK
+level43.txt | A*_Relaxation_Dynamic | 0.060833 | 60 | 1880064 | 8384 | 6344 | 8598 | OK
+
+level44.txt | DFS | 0.000057 | 1 | 4096 | 2 | 1 | 2 | OK
+level44.txt | A*_Manhattan | 0.000078 | 0 | 12288 | 2 | 1 | 2 | OK
+level44.txt | A*_Relaxation_1.5 | 0.000091 | 0 | 16384 | 2 | 1 | 2 | OK
+level44.txt | A*_Relaxation_Dynamic | 0.000082 | 0 | 16384 | 2 | 1 | 2 | OK
+
+level45.txt | DFS | 0.007473 | 75 | 258048 | 1119 | 1118 | 1155 | OK
+level45.txt | A*_Manhattan | 0.019092 | 44 | 880640 | 2577 | 2090 | 2657 | OK
+level45.txt | A*_Relaxation_1.5 | 0.017387 | 44 | 720896 | 1768 | 1446 | 1901 | OK
+level45.txt | A*_Relaxation_Dynamic | 0.013966 | 44 | 663552 | 1529 | 1251 | 1657 | OK
+
+level46.txt | DFS | 0.000248 | 47 | 16384 | 51 | 50 | 66 | OK
+level46.txt | A*_Manhattan | 0.002448 | 46 | 126976 | 351 | 325 | 352 | OK
+level46.txt | A*_Relaxation_1.5 | 0.002305 | 46 | 110592 | 347 | 324 | 348 | OK
+level46.txt | A*_Relaxation_Dynamic | 0.002530 | 46 | 118784 | 347 | 324 | 348 | OK
+
+level47.txt | DFS | 0.009344 | 111 | 487424 | 1397 | 1396 | 1444 | OK
+level47.txt | A*_Manhattan | 0.028814 | 82 | 1138688 | 4231 | 3386 | 4269 | OK
+level47.txt | A*_Relaxation_1.5 | 0.026698 | 82 | 1064960 | 3927 | 3156 | 3991 | OK
+level47.txt | A*_Relaxation_Dynamic | 0.027293 | 82 | 909312 | 3808 | 3059 | 3882 | OK
+
+level48.txt | DFS | 0.081290 | 230 | 2506752 | 12655 | 12654 | 12748 | OK
+level48.txt | A*_Manhattan | 0.173773 | 63 | 3936256 | 19170 | 15164 | 19393 | OK
+level48.txt | A*_Relaxation_1.5 | 0.138755 | 63 | 3588096 | 16137 | 12827 | 16577 | OK
+level48.txt | A*_Relaxation_Dynamic | 0.159991 | 63 | 3264512 | 14945 | 11915 | 15497 | OK
+
+level49.txt | DFS | 0.092268 | 134 | 2936832 | 14593 | 14592 | 14653 | OK
+level49.txt | A*_Manhattan | 0.224086 | 81 | 5492736 | 25669 | 20170 | 25754 | OK
+level49.txt | A*_Relaxation_1.5 | 0.209835 | 81 | 5156864 | 24644 | 19452 | 24894 | OK
+level49.txt | A*_Relaxation_Dynamic | 0.219934 | 81 | 5058560 | 24094 | 19055 | 24443 | OK
+
+level50.txt | DFS | 0.004892 | 250 | 393216 | 1013 | 1012 | 1097 | OK
+level50.txt | A*_Manhattan | 0.012880 | 75 | 544768 | 1557 | 1322 | 1589 | OK
+level50.txt | A*_Relaxation_1.5 | 0.011289 | 75 | 409600 | 1428 | 1201 | 1477 | OK
+level50.txt | A*_Relaxation_Dynamic | 0.012391 | 75 | 409600 | 1429 | 1201 | 1478 | OK
+
+level51.txt | DFS | 0.003569 | 54 | 167936 | 570 | 569 | 589 | OK
+level51.txt | A*_Manhattan | 0.004721 | 33 | 229376 | 636 | 527 | 673 | OK
+level51.txt | A*_Relaxation_1.5 | 0.003289 | 33 | 192512 | 459 | 382 | 501 | OK
+level51.txt | A*_Relaxation_Dynamic | 0.003827 | 33 | 163840 | 414 | 346 | 464 | OK
+
+level52.txt | DFS | 0.041794 | 229 | 1613824 | 7370 | 7369 | 7484 | OK
+level52.txt | A*_Manhattan | 0.125487 | 25 | 4214784 | 16494 | 12685 | 17378 | OK
+level52.txt | A*_Relaxation_1.5 | 0.085189 | 25 | 3858432 | 9582 | 7563 | 11298 | OK
+level52.txt | A*_Relaxation_Dynamic | 0.076870 | 25 | 3391488 | 7754 | 6180 | 9417 | OK
+
+level53.txt | DFS | 0.003413 | 97 | 212992 | 634 | 633 | 697 | OK
+level53.txt | A*_Manhattan | 0.023860 | 36 | 733184 | 2277 | 1876 | 2369 | OK
+level53.txt | A*_Relaxation_1.5 | 0.018510 | 36 | 737280 | 2004 | 1648 | 2111 | OK
+level53.txt | A*_Relaxation_Dynamic | 0.020232 | 36 | 794624 | 1938 | 1593 | 2025 | OK
+
+level54.txt | DFS | 1.815217 | 388 | 30015488 | 156329 | 156328 | 156547 | OK
+level54.txt | A*_Manhattan | 3.069632 | 81 | 54542336 | 271314 | 201968 | 272522 | OK
+level54.txt | A*_Relaxation_1.5 | 3.047572 | 81 | 52731904 | 240245 | 180207 | 245268 | OK
+level54.txt | A*_Relaxation_Dynamic | 2.899101 | 81 | 49713152 | 217077 | 163346 | 224053 | OK
+
+level55.txt | DFS | 0.003812 | 172 | 299008 | 721 | 720 | 812 | OK
+level55.txt | A*_Manhattan | 0.013702 | 63 | 532480 | 1703 | 1348 | 1721 | OK
+level55.txt | A*_Relaxation_1.5 | 0.011520 | 63 | 360448 | 1381 | 1102 | 1436 | OK
+level55.txt | A*_Relaxation_Dynamic | 0.010921 | 63 | 405504 | 1382 | 1103 | 1430 | OK
+
+level56.txt | DFS | 0.002290 | 41 | 114688 | 366 | 365 | 387 | OK
+level56.txt | A*_Manhattan | 0.001813 | 22 | 102400 | 250 | 201 | 290 | OK
+level56.txt | A*_Relaxation_1.5 | 0.001719 | 22 | 65536 | 191 | 147 | 204 | OK
+level56.txt | A*_Relaxation_Dynamic | 0.001301 | 22 | 65536 | 190 | 146 | 201 | OK
+
+level57.txt | DFS | 0.004164 | 94 | 266240 | 928 | 927 | 978 | OK
+level57.txt | A*_Manhattan | 0.012062 | 59 | 380928 | 1675 | 1310 | 1692 | OK
+level57.txt | A*_Relaxation_1.5 | 0.011859 | 59 | 516096 | 1637 | 1273 | 1649 | OK
+level57.txt | A*_Relaxation_Dynamic | 0.011873 | 59 | 532480 | 1637 | 1273 | 1649 | OK
+
+level58.txt | DFS | 0.003616 | 99 | 229376 | 736 | 735 | 767 | OK
+level58.txt | A*_Manhattan | 0.014736 | 43 | 417792 | 1424 | 1222 | 1468 | OK
+level58.txt | A*_Relaxation_1.5 | 0.012403 | 43 | 368640 | 1193 | 1025 | 1252 | OK
+level58.txt | A*_Relaxation_Dynamic | 0.015901 | 43 | 352256 | 1120 | 963 | 1182 | OK
+
+level59.txt | DFS | 0.157740 | 1720 | 4218880 | 19608 | 19607 | 20186 | OK
+level59.txt | A*_Manhattan | 1.026408 | 177 | 24604672 | 123475 | 97610 | 123991 | OK
+level59.txt | A*_Relaxation_1.5 | 1.028074 | 177 | 22171648 | 109188 | 86480 | 111367 | OK
+level59.txt | A*_Relaxation_Dynamic | 1.001933 | 177 | 24821760 | 104664 | 83043 | 107291 | OK
+
+level60.txt | DFS | 0.086046 | 367 | 3416064 | 18304 | 18303 | 18446 | OK
+level60.txt | A*_Manhattan | 0.794928 | 168 | 18817024 | 87169 | 73674 | 87214 | OK
+level60.txt | A*_Relaxation_1.5 | 0.857714 | 168 | 19574784 | 87339 | 72915 | 87452 | OK
+level60.txt | A*_Relaxation_Dynamic | 0.899264 | 168 | 19992576 | 87046 | 72673 | 87146 | OK
+
+level61.txt | DFS | 0.028405 | 326 | 1114112 | 5664 | 5663 | 5760 | OK
+level61.txt | A*_Manhattan | 0.067797 | 99 | 2355200 | 9577 | 8371 | 9606 | OK
+level61.txt | A*_Relaxation_1.5 | 0.078732 | 99 | 2342912 | 9473 | 8309 | 9506 | OK
+level61.txt | A*_Relaxation_Dynamic | 0.074742 | 99 | 2338816 | 9470 | 8306 | 9503 | OK
+
+level62.txt | DFS | 0.282794 | 298 | 8458240 | 42638 | 42637 | 42832 | OK
+level62.txt | A*_Manhattan | 0.595926 | 63 | 12795904 | 57747 | 44012 | 59449 | OK
+level62.txt | A*_Relaxation_1.5 | 0.360523 | 63 | 9814016 | 34294 | 26542 | 37005 | OK
+level62.txt | A*_Relaxation_Dynamic | 0.317963 | 63 | 8224768 | 28077 | 21810 | 30446 | OK
+
+level63.txt | DFS | 0.011551 | 151 | 430080 | 1201 | 1200 | 1251 | OK
+level63.txt | A*_Manhattan | 0.037337 | 100 | 1032192 | 4239 | 3417 | 4305 | OK
+level63.txt | A*_Relaxation_1.5 | 0.037907 | 100 | 819200 | 3724 | 3021 | 3809 | OK
+level63.txt | A*_Relaxation_Dynamic | 0.039798 | 100 | 1040384 | 3687 | 2993 | 3769 | OK
+
+level64.txt | DFS | 0.082084 | 133 | 2248704 | 11477 | 11476 | 11557 | OK
+level64.txt | A*_Manhattan | 0.188250 | 94 | 4321280 | 20409 | 16197 | 20451 | OK
+level64.txt | A*_Relaxation_1.5 | 0.187568 | 94 | 4087808 | 19398 | 15406 | 19647 | OK
+level64.txt | A*_Relaxation_Dynamic | 0.193780 | 94 | 4030464 | 18786 | 14937 | 19120 | OK
+
+level65.txt | DFS | 0.273028 | 744 | 6930432 | 36020 | 36019 | 36394 | OK
+level65.txt | A*_Manhattan | 3.620274 | 137 | 42668032 | 225529 | 171055 | 225639 | OK
+level65.txt | A*_Relaxation_1.5 | 4.113671 | 137 | 44687360 | 224883 | 170806 | 225008 | OK
+level65.txt | A*_Relaxation_Dynamic | 4.183738 | 137 | 44826624 | 224795 | 170750 | 224948 | OK
+
+level66.txt | DFS | 0.710788 | 1501 | 7340032 | 36871 | 36870 | 37595 | OK
+level66.txt | A*_Manhattan | 0.782880 | 68 | 9494528 | 37522 | 31717 | 38901 | OK
+level66.txt | A*_Relaxation_1.5 | 0.642057 | 68 | 7835648 | 27741 | 23387 | 29105 | OK
+level66.txt | A*_Relaxation_Dynamic | 0.618267 | 70 | 6967296 | 26056 | 21942 | 27289 | OK
+
+level67.txt | DFS | 0.003010 | 95 | 102400 | 300 | 299 | 317 | OK
+level67.txt | A*_Manhattan | 0.008272 | 36 | 159744 | 505 | 464 | 516 | OK
+level67.txt | A*_Relaxation_1.5 | 0.006405 | 36 | 151552 | 452 | 415 | 464 | OK
+level67.txt | A*_Relaxation_Dynamic | 0.006516 | 36 | 155648 | 444 | 407 | 459 | OK
+
+level68.txt | DFS | 0.032442 | 218 | 815104 | 2946 | 2945 | 3025 | OK
+level68.txt | A*_Manhattan | 0.092963 | 97 | 1478656 | 7560 | 6101 | 7617 | OK
+level68.txt | A*_Relaxation_1.5 | 0.122672 | 97 | 1417216 | 7098 | 5735 | 7165 | OK
+level68.txt | A*_Relaxation_Dynamic | 0.145137 | 97 | 1441792 | 7070 | 5710 | 7148 | OK
+
+level69.txt | DFS | 2.481454 | 822 | 15044608 | 77431 | 77430 | 77851 | OK
+level69.txt | A*_Manhattan | 3.609782 | 124 | 24600576 | 137464 | 104379 | 138088 | OK
+level69.txt | A*_Relaxation_1.5 | 3.734921 | 124 | 24166400 | 131951 | 100018 | 132894 | OK
+level69.txt | A*_Relaxation_Dynamic | 3.811188 | 124 | 24268800 | 130467 | 98920 | 131560 | OK
+
+level70.txt | DFS | 0.117158 | 180 | 1310720 | 6241 | 6240 | 6358 | OK
+level70.txt | A*_Manhattan | 2.858578 | 77 | 28094464 | 134023 | 102897 | 136267 | OK
+level70.txt | A*_Relaxation_1.5 | 1.644828 | 77 | 19038208 | 71280 | 55415 | 75875 | OK
+level70.txt | A*_Relaxation_Dynamic | 1.392027 | 77 | 14794752 | 53304 | 41512 | 57508 | OK
+
+level71.txt | DFS | 0.076196 | 420 | 1581056 | 7903 | 7902 | 8008 | OK
+level71.txt | A*_Manhattan | 0.163729 | 119 | 2883584 | 13932 | 11763 | 14072 | OK
+level71.txt | A*_Relaxation_1.5 | 0.147189 | 119 | 2863104 | 12222 | 10335 | 12426 | OK
+level71.txt | A*_Relaxation_Dynamic | 0.157638 | 119 | 2850816 | 11941 | 10085 | 12157 | OK
+
+level72.txt | DFS | 0.277607 | 187 | 5017600 | 24127 | 24126 | 24232 | OK
+level72.txt | A*_Manhattan | 0.669211 | 104 | 9682944 | 53449 | 40777 | 53954 | OK
+level72.txt | A*_Relaxation_1.5 | 0.660726 | 104 | 9179136 | 48830 | 37258 | 49394 | OK
+level72.txt | A*_Relaxation_Dynamic | 0.694371 | 104 | 8986624 | 47900 | 36557 | 48454 | OK
+
+level73.txt | DFS | 0.035751 | 442 | 692224 | 3177 | 3176 | 3344 | OK
+level73.txt | A*_Manhattan | 0.357116 | 101 | 6209536 | 27716 | 22603 | 28531 | OK
+level73.txt | A*_Relaxation_1.5 | 0.228397 | 101 | 3850240 | 17510 | 14213 | 18005 | OK
+level73.txt | A*_Relaxation_Dynamic | 0.243019 | 101 | 3514368 | 15865 | 12855 | 16288 | OK
+
+level74.txt | DFS | 0.497534 | 363 | 5476352 | 28088 | 28087 | 28217 | OK
+level74.txt | A*_Manhattan | 1.423602 | 116 | 17141760 | 77998 | 63431 | 78093 | OK
+level74.txt | A*_Relaxation_1.5 | 1.307973 | 116 | 16285696 | 67942 | 55697 | 69137 | OK
+level74.txt | A*_Relaxation_Dynamic | 1.377216 | 116 | 14897152 | 62387 | 51280 | 63953 | OK
+
+level75.txt | DFS | 0.273413 | 244 | 5275648 | 27201 | 27200 | 27322 | OK
+level75.txt | A*_Manhattan | 1.027313 | 91 | 13864960 | 66135 | 49589 | 66152 | OK
+level75.txt | A*_Relaxation_1.5 | 1.148576 | 91 | 14860288 | 65805 | 49512 | 65879 | OK
+level75.txt | A*_Relaxation_Dynamic | 1.208147 | 91 | 15196160 | 65632 | 49397 | 65748 | OK
+
+level76.txt | DFS | 0.229285 | 941 | 3248128 | 18006 | 18005 | 18369 | OK
+level76.txt | A*_Manhattan | 0.850407 | 180 | 11366400 | 65060 | 49385 | 65120 | OK
+level76.txt | A*_Relaxation_1.5 | 0.921805 | 180 | 11333632 | 64260 | 48971 | 64405 | OK
+level76.txt | A*_Relaxation_Dynamic | 0.959368 | 180 | 11284480 | 64142 | 48883 | 64308 | OK
+
+level77.txt | DFS | 1.220990 | 1001 | 11911168 | 60632 | 60631 | 61035 | OK
+level77.txt | A*_Manhattan | 2.231012 | 188 | 21327872 | 109920 | 87377 | 109959 | OK
+level77.txt | A*_Relaxation_1.5 | 2.418891 | 188 | 21336064 | 110125 | 87101 | 110279 | OK
+level77.txt | A*_Relaxation_Dynamic | 2.505578 | 188 | 21446656 | 109853 | 87018 | 110047 | OK
+
+level78.txt | DFS | 100.075028 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level78.txt | A*_Manhattan | 62.175191 | 134 | 330113024 | 1764605 | 1330373 | 1764897 | OK
+level78.txt | A*_Relaxation_1.5 | 70.393822 | 134 | 341757952 | 1755386 | 1326338 | 1756585 | OK
+level78.txt | A*_Relaxation_Dynamic | 71.801472 | 134 | 344731648 | 1751713 | 1324453 | 1753193 | OK
+
+level79.txt | DFS | 0.018491 | 82 | 516096 | 1794 | 1793 | 1837 | OK
+level79.txt | A*_Manhattan | 0.102539 | 47 | 2224128 | 7689 | 6157 | 8324 | OK
+level79.txt | A*_Relaxation_1.5 | 0.067353 | 47 | 1499136 | 4746 | 3768 | 5153 | OK
+level79.txt | A*_Relaxation_Dynamic | 0.062249 | 47 | 1384448 | 4372 | 3465 | 4713 | OK
+
+level80.txt | DFS | 0.924361 | 229 | 10698752 | 54733 | 54732 | 54845 | OK
+level80.txt | A*_Manhattan | 2.564440 | 130 | 24944640 | 120155 | 97327 | 120226 | OK
+level80.txt | A*_Relaxation_1.5 | 2.772089 | 130 | 26066944 | 119259 | 96581 | 119524 | OK
+level80.txt | A*_Relaxation_Dynamic | 2.814408 | 130 | 26390528 | 118567 | 96019 | 118799 | OK
+
+level81.txt | DFS | 0.036439 | 138 | 958464 | 3491 | 3490 | 3563 | OK
+level81.txt | A*_Manhattan | 0.068193 | 45 | 1314816 | 5284 | 4128 | 5416 | OK
+level81.txt | A*_Relaxation_1.5 | 0.062473 | 45 | 1261568 | 4715 | 3686 | 4900 | OK
+level81.txt | A*_Relaxation_Dynamic | 0.065529 | 45 | 1265664 | 4552 | 3556 | 4732 | OK
+
+level82.txt | DFS | 0.004503 | 58 | 155648 | 598 | 597 | 619 | OK
+level82.txt | A*_Manhattan | 0.018744 | 51 | 344064 | 1102 | 922 | 1134 | OK
+level82.txt | A*_Relaxation_1.5 | 0.018916 | 51 | 290816 | 988 | 825 | 1014 | OK
+level82.txt | A*_Relaxation_Dynamic | 0.018620 | 51 | 274432 | 978 | 817 | 1006 | OK
+
+level83.txt | DFS | 12.258520 | 8671 | 35201024 | 204249 | 204248 | 209151 | OK
+level83.txt | A*_Manhattan | 7.420568 | 163 | 58863616 | 311003 | 235551 | 311040 | OK
+level83.txt | A*_Relaxation_1.5 | 8.215044 | 163 | 61198336 | 310844 | 235306 | 310910 | OK
+level83.txt | A*_Relaxation_Dynamic | 8.383130 | 163 | 61472768 | 310635 | 235252 | 310678 | OK
+
+level84.txt | DFS | 1.247435 | 2441 | 9588736 | 47518 | 47517 | 48622 | OK
+level84.txt | A*_Manhattan | 2.163036 | 200 | 23203840 | 130776 | 103200 | 130888 | OK
+level84.txt | A*_Relaxation_1.5 | 2.199880 | 200 | 22372352 | 123430 | 97523 | 124184 | OK
+level84.txt | A*_Relaxation_Dynamic | 2.256435 | 200 | 22441984 | 122578 | 96878 | 123393 | OK
+
+level85.txt | DFS | 1.025181 | 1723 | 13090816 | 70342 | 70341 | 71102 | OK
+level85.txt | A*_Manhattan | 3.402778 | 154 | 36143104 | 195185 | 154357 | 195804 | OK
+level85.txt | A*_Relaxation_1.5 | 3.577646 | 154 | 36458496 | 186226 | 147129 | 187371 | OK
+level85.txt | A*_Relaxation_Dynamic | 3.601195 | 154 | 35872768 | 180537 | 142985 | 182229 | OK
+
+level86.txt | DFS | 0.034158 | 205 | 921600 | 3292 | 3291 | 3401 | OK
+level86.txt | A*_Manhattan | 0.499389 | 104 | 7663616 | 35803 | 29780 | 35885 | OK
+level86.txt | A*_Relaxation_1.5 | 0.546328 | 104 | 7655424 | 34632 | 28882 | 34848 | OK
+level86.txt | A*_Relaxation_Dynamic | 0.549932 | 104 | 7503872 | 34144 | 28477 | 34378 | OK
+
+level87.txt | DFS | 3.650990 | 1883 | 33234944 | 176269 | 176268 | 177304 | OK
+level87.txt | A*_Manhattan | 6.400191 | 148 | 60882944 | 320183 | 239842 | 320292 | OK
+level87.txt | A*_Relaxation_1.5 | 6.884219 | 148 | 60284928 | 311735 | 234298 | 312664 | OK
+level87.txt | A*_Relaxation_Dynamic | 7.037204 | 148 | 59621376 | 307677 | 231348 | 308960 | OK
+
+level88.txt | DFS | 0.621356 | 1781 | 5816320 | 30086 | 30085 | 30839 | OK
+level88.txt | A*_Manhattan | 1.702190 | 194 | 17903616 | 101378 | 79011 | 101496 | OK
+level88.txt | A*_Relaxation_1.5 | 1.815220 | 194 | 17956864 | 100927 | 78192 | 101233 | OK
+level88.txt | A*_Relaxation_Dynamic | 1.881145 | 194 | 17850368 | 100562 | 78023 | 100932 | OK
+
+level89.txt | DFS | 1.072115 | 1621 | 12382208 | 64122 | 64121 | 64789 | OK
+level89.txt | A*_Manhattan | 2.816579 | 145 | 32010240 | 154877 | 126133 | 155120 | OK
+level89.txt | A*_Relaxation_1.5 | 2.971785 | 145 | 32481280 | 151678 | 123508 | 152348 | OK
+level89.txt | A*_Relaxation_Dynamic | 3.068385 | 145 | 32477184 | 150612 | 122638 | 151336 | OK
+
+level90.txt | DFS | 0.790903 | 876 | 8118272 | 39530 | 39529 | 40036 | OK
+level90.txt | A*_Manhattan | 3.181330 | 63 | 40046592 | 176584 | 134101 | 177091 | OK
+level90.txt | A*_Relaxation_1.5 | 3.419547 | 63 | 40202240 | 167848 | 127385 | 169818 | OK
+level90.txt | A*_Relaxation_Dynamic | 3.368124 | 63 | 38326272 | 158197 | 120390 | 161632 | OK
+
+level91.txt | DFS | 0.128192 | 92 | 2326528 | 11790 | 11789 | 11840 | OK
+level91.txt | A*_Manhattan | 0.208537 | 44 | 3604480 | 13292 | 10591 | 14028 | OK
+level91.txt | A*_Relaxation_1.5 | 0.117010 | 44 | 2404352 | 5799 | 4710 | 6569 | OK
+level91.txt | A*_Relaxation_Dynamic | 0.109756 | 44 | 1961984 | 4541 | 3690 | 5212 | OK
+
+level92.txt | DFS | 0.041583 | 414 | 630784 | 3636 | 3635 | 3800 | OK
+level92.txt | A*_Manhattan | 0.811597 | 125 | 11571200 | 59746 | 49467 | 60016 | OK
+level92.txt | A*_Relaxation_1.5 | 0.828276 | 125 | 11476992 | 55815 | 46379 | 56300 | OK
+level92.txt | A*_Relaxation_Dynamic | 0.842345 | 125 | 11333632 | 54478 | 45261 | 55031 | OK
+
+level93.txt | DFS | 100.128226 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level93.txt | A*_Manhattan | 100.235854 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level93.txt | A*_Relaxation_1.5 | 100.238751 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level93.txt | A*_Relaxation_Dynamic | 100.193343 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level94.txt | DFS | 0.123392 | 193 | 1982464 | 10224 | 10223 | 10304 | OK
+level94.txt | A*_Manhattan | 0.304812 | 82 | 3932160 | 18219 | 14597 | 18253 | OK
+level94.txt | A*_Relaxation_1.5 | 0.321028 | 82 | 3862528 | 18019 | 14396 | 18091 | OK
+level94.txt | A*_Relaxation_Dynamic | 0.321202 | 82 | 3649536 | 17864 | 14271 | 17964 | OK
+
+level95.txt | DFS | 100.124102 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level95.txt | A*_Manhattan | 100.432774 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level95.txt | A*_Relaxation_1.5 | 3.231726 | 24 | 105779200 | 89480 | 76209 | 163554 | OK
+level95.txt | A*_Relaxation_Dynamic | 1.707986 | 24 | 44023808 | 38382 | 32617 | 68555 | OK
+
+level96.txt | DFS | 0.487156 | 1052 | 6754304 | 31544 | 31543 | 32079 | OK
+level96.txt | A*_Manhattan | 0.654012 | 91 | 8925184 | 44150 | 35466 | 44531 | OK
+level96.txt | A*_Relaxation_1.5 | 0.652594 | 91 | 7950336 | 41073 | 32875 | 41478 | OK
+level96.txt | A*_Relaxation_Dynamic | 0.673115 | 91 | 8024064 | 40448 | 32366 | 40891 | OK
+
+level97.txt | DFS | 2.586432 | 812 | 38801408 | 197160 | 197159 | 197468 | OK
+level97.txt | A*_Manhattan | 13.149989 | 163 | 115818496 | 580490 | 470420 | 580631 | OK
+level97.txt | A*_Relaxation_1.5 | 14.485207 | 163 | 119013376 | 567356 | 459443 | 569579 | OK
+level97.txt | A*_Relaxation_Dynamic | 14.852474 | 163 | 119906304 | 560249 | 454139 | 563105 | OK
+
+level98.txt | DFS | 100.162489 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level98.txt | A*_Manhattan | 100.159579 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level98.txt | A*_Relaxation_1.5 | 100.126750 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level98.txt | A*_Relaxation_Dynamic | 100.131003 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level99.txt | DFS | 29.889117 | 1803 | 173240320 | 1001318 | 1001317 | 1002161 | OK
+level99.txt | A*_Manhattan | 100.119810 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level99.txt | A*_Relaxation_1.5 | 100.094790 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level99.txt | A*_Relaxation_Dynamic | 100.098996 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level100.txt | DFS | 0.485185 | 353 | 8302592 | 41931 | 41930 | 42087 | OK
+level100.txt | A*_Manhattan | 1.303527 | 154 | 16011264 | 87930 | 67185 | 87958 | OK
+level100.txt | A*_Relaxation_1.5 | 1.439954 | 154 | 16461824 | 87371 | 66791 | 87645 | OK
+level100.txt | A*_Relaxation_Dynamic | 1.461662 | 154 | 16506880 | 86567 | 66268 | 87112 | OK
+
+level101.txt | DFS | 0.148967 | 1868 | 2539520 | 8839 | 8838 | 9425 | OK
+level101.txt | A*_Manhattan | 0.599472 | 78 | 9588736 | 37500 | 34855 | 38225 | OK
+level101.txt | A*_Relaxation_1.5 | 0.569491 | 78 | 8773632 | 32376 | 30139 | 33205 | OK
+level101.txt | A*_Relaxation_Dynamic | 0.551710 | 78 | 8409088 | 30918 | 28797 | 31813 | OK
+
+level102.txt | DFS | 33.422168 | 3060 | 174977024 | 1003694 | 1003693 | 1005224 | OK
+level102.txt | A*_Manhattan | 39.806003 | 148 | 246751232 | 1371252 | 1012741 | 1373445 | OK
+level102.txt | A*_Relaxation_1.5 | 43.016017 | 148 | 254136320 | 1308796 | 965467 | 1316356 | OK
+level102.txt | A*_Relaxation_Dynamic | 43.085330 | 148 | 248954880 | 1274654 | 941092 | 1285552 | OK
+
+level103.txt | DFS | 0.035508 | 159 | 888832 | 3513 | 3512 | 3574 | OK
+level103.txt | A*_Manhattan | 0.151960 | 34 | 3690496 | 10754 | 9142 | 11713 | OK
+level103.txt | A*_Relaxation_1.5 | 0.093096 | 34 | 2224128 | 5861 | 4987 | 6557 | OK
+level103.txt | A*_Relaxation_Dynamic | 0.088171 | 34 | 1986560 | 5322 | 4526 | 5953 | OK
+
+level104.txt | DFS | 0.191823 | 895 | 2473984 | 11311 | 11310 | 11680 | OK
+level104.txt | A*_Manhattan | 0.360888 | 78 | 4104192 | 19500 | 15450 | 19560 | OK
+level104.txt | A*_Relaxation_1.5 | 0.350922 | 78 | 3997696 | 18900 | 14922 | 19107 | OK
+level104.txt | A*_Relaxation_Dynamic | 0.365069 | 78 | 3649536 | 18565 | 14658 | 18784 | OK
+
+level105.txt | DFS | 100.158586 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level105.txt | A*_Manhattan | 100.182432 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level105.txt | A*_Relaxation_1.5 | 100.183259 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level105.txt | A*_Relaxation_Dynamic | 100.187149 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level106.txt | DFS | 100.079164 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level106.txt | A*_Manhattan | 47.842044 | 204 | 271208448 | 1419814 | 1125583 | 1420093 | OK
+level106.txt | A*_Relaxation_1.5 | 52.543096 | 204 | 272297984 | 1417513 | 1123832 | 1418043 | OK
+level106.txt | A*_Relaxation_Dynamic | 53.757778 | 204 | 271839232 | 1417054 | 1123475 | 1417640 | OK
+
+level107.txt | DFS | 100.271690 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level107.txt | A*_Manhattan | 100.473485 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level107.txt | A*_Relaxation_1.5 | 100.389476 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level107.txt | A*_Relaxation_Dynamic | 100.421751 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level108.txt | DFS | 9.277181 | 6362 | 26251264 | 238439 | 238438 | 241536 | OK
+level108.txt | A*_Manhattan | 23.265590 | 237 | 239116288 | 1328843 | 1010766 | 1328969 | OK
+level108.txt | A*_Relaxation_1.5 | 28.392725 | 237 | 250097664 | 1319030 | 1010045 | 1319148 | OK
+level108.txt | A*_Relaxation_Dynamic | 30.779800 | 237 | 253849600 | 1318204 | 1009989 | 1318339 | OK
+
+level109.txt | DFS | 100.063071 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level109.txt | A*_Manhattan | 65.875329 | 176 | 458530816 | 2275703 | 1897525 | 2275956 | OK
+level109.txt | A*_Relaxation_1.5 | 79.808514 | 176 | 479674368 | 2268222 | 1892667 | 2269115 | OK
+level109.txt | A*_Relaxation_Dynamic | 81.610811 | 176 | 481124352 | 2266367 | 1891454 | 2267320 | OK
+
+level110.txt | DFS | 0.060538 | 189 | 1130496 | 5688 | 5687 | 5759 | OK
+level110.txt | A*_Manhattan | 0.272284 | 50 | 4968448 | 18321 | 14974 | 19155 | OK
+level110.txt | A*_Relaxation_1.5 | 0.248766 | 50 | 3903488 | 14173 | 11537 | 14859 | OK
+level110.txt | A*_Relaxation_Dynamic | 0.229984 | 50 | 3624960 | 13499 | 10963 | 14139 | OK
+
+level111.txt | DFS | 100.104225 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level111.txt | A*_Manhattan | 100.153905 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level111.txt | A*_Relaxation_1.5 | 100.143074 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level111.txt | A*_Relaxation_Dynamic | 100.150588 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level112.txt | DFS | 100.266852 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level112.txt | A*_Manhattan | 100.174146 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level112.txt | A*_Relaxation_1.5 | 100.197513 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level112.txt | A*_Relaxation_Dynamic | 100.167095 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level113.txt | DFS | 56.689714 | 3596 | 35373056 | 510264 | 510263 | 512351 | OK
+level113.txt | A*_Manhattan | 43.018747 | 161 | 251613184 | 1389774 | 1052192 | 1391525 | OK
+level113.txt | A*_Relaxation_1.5 | 47.512484 | 161 | 259342336 | 1343939 | 1022526 | 1348426 | OK
+level113.txt | A*_Relaxation_Dynamic | 48.917951 | 163 | 260341760 | 1336454 | 1016638 | 1341437 | OK
+
+level114.txt | DFS | 27.854455 | 3781 | 80044032 | 2103743 | 2103742 | 2105818 | OK
+level114.txt | A*_Manhattan | 95.727222 | 226 | 642134016 | 3439914 | 2722123 | 3441129 | OK
+level114.txt | A*_Relaxation_1.5 | 100.117425 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level114.txt | A*_Relaxation_Dynamic | 100.114659 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level115.txt | DFS | 0.418421 | 787 | 6979584 | 33816 | 33815 | 34166 | OK
+level115.txt | A*_Manhattan | 43.914810 | 109 | 337580032 | 1467578 | 1182327 | 1483419 | OK
+level115.txt | A*_Relaxation_1.5 | 36.997820 | 109 | 270032896 | 1094610 | 884925 | 1126575 | OK
+level115.txt | A*_Relaxation_Dynamic | 33.488031 | 109 | 247201792 | 977269 | 790705 | 1010486 | OK
+
+level116.txt | DFS | 0.373210 | 119 | 8110080 | 37963 | 37962 | 38011 | OK
+level116.txt | A*_Manhattan | 1.218392 | 62 | 18071552 | 71153 | 57485 | 73274 | OK
+level116.txt | A*_Relaxation_1.5 | 0.888204 | 62 | 14569472 | 49026 | 39867 | 51972 | OK
+level116.txt | A*_Relaxation_Dynamic | 0.826493 | 62 | 13557760 | 43588 | 35543 | 46750 | OK
+
+level117.txt | DFS | 69.753086 | 6274 | 74338304 | 1665405 | 1665404 | 1668179 | OK
+level117.txt | A*_Manhattan | 100.125704 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level117.txt | A*_Relaxation_1.5 | 100.129518 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level117.txt | A*_Relaxation_Dynamic | 100.119455 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level118.txt | DFS | 100.063213 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level118.txt | A*_Manhattan | 8.705406 | 171 | 68296704 | 360116 | 276522 | 360244 | OK
+level118.txt | A*_Relaxation_1.5 | 9.481349 | 171 | 69193728 | 361481 | 276170 | 361625 | OK
+level118.txt | A*_Relaxation_Dynamic | 9.746779 | 171 | 69582848 | 361284 | 276031 | 361482 | OK
+
+level119.txt | DFS | 0.411875 | 937 | 4386816 | 19473 | 19472 | 19788 | OK
+level119.txt | A*_Manhattan | 0.474533 | 130 | 4956160 | 24688 | 20576 | 24713 | OK
+level119.txt | A*_Relaxation_1.5 | 0.520967 | 130 | 5242880 | 24560 | 20450 | 24603 | OK
+level119.txt | A*_Relaxation_Dynamic | 0.534975 | 130 | 5222400 | 24539 | 20433 | 24582 | OK
+
+level120.txt | DFS | 0.460866 | 639 | 7606272 | 40999 | 40998 | 41279 | OK
+level120.txt | A*_Manhattan | 2.370989 | 182 | 31772672 | 147495 | 121318 | 147550 | OK
+level120.txt | A*_Relaxation_1.5 | 2.579450 | 182 | 31490048 | 146907 | 120207 | 147071 | OK
+level120.txt | A*_Relaxation_Dynamic | 2.682120 | 182 | 31215616 | 146815 | 120160 | 146972 | OK
+
+level121.txt | DFS | 26.711653 | 2517 | 153849856 | 765028 | 765027 | 766001 | OK
+level121.txt | A*_Manhattan | 36.058726 | 124 | 259600384 | 1237199 | 992050 | 1239657 | OK
+level121.txt | A*_Relaxation_1.5 | 31.047215 | 124 | 227450880 | 942424 | 763262 | 960142 | OK
+level121.txt | A*_Relaxation_Dynamic | 27.842303 | 124 | 205250560 | 827769 | 671638 | 848659 | OK
+
+level122.txt | DFS | 100.142045 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level122.txt | A*_Manhattan | 100.141217 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level122.txt | A*_Relaxation_1.5 | 100.132840 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level122.txt | A*_Relaxation_Dynamic | 100.144908 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level123.txt | DFS | 100.069824 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level123.txt | A*_Manhattan | 100.145646 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level123.txt | A*_Relaxation_1.5 | 100.126486 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level123.txt | A*_Relaxation_Dynamic | 100.132518 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level124.txt | DFS | 3.374156 | 658 | 28274688 | 156745 | 156744 | 156971 | OK
+level124.txt | A*_Manhattan | 4.526604 | 244 | 46088192 | 247941 | 204267 | 249044 | OK
+level124.txt | A*_Relaxation_1.5 | 4.412403 | 244 | 43241472 | 224280 | 184719 | 225746 | OK
+level124.txt | A*_Relaxation_Dynamic | 4.581962 | 244 | 42848256 | 222695 | 183529 | 224163 | OK
+
+level125.txt | DFS | 1.134577 | 1094 | 11821056 | 62303 | 62302 | 62710 | OK
+level125.txt | A*_Manhattan | 4.522452 | 124 | 48087040 | 232703 | 187775 | 232928 | OK
+level125.txt | A*_Relaxation_1.5 | 4.884157 | 124 | 51535872 | 223842 | 182271 | 225485 | OK
+level125.txt | A*_Relaxation_Dynamic | 4.896719 | 124 | 51240960 | 216952 | 176868 | 219370 | OK
+
+level126.txt | DFS | 6.317042 | 527 | 66449408 | 318320 | 318319 | 318572 | OK
+level126.txt | A*_Manhattan | 100.210504 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level126.txt | A*_Relaxation_1.5 | 100.189949 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level126.txt | A*_Relaxation_Dynamic | 100.172392 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level127.txt | DFS | 0.621523 | 634 | 14565376 | 77119 | 77118 | 77371 | OK
+level127.txt | A*_Manhattan | 0.974246 | 105 | 19566592 | 90509 | 72071 | 92959 | OK
+level127.txt | A*_Relaxation_1.5 | 0.648438 | 105 | 13881344 | 62683 | 49673 | 64622 | OK
+level127.txt | A*_Relaxation_Dynamic | 0.631605 | 105 | 12271616 | 57601 | 45572 | 59164 | OK
+
+level128.txt | DFS | 0.327494 | 396 | 7061504 | 34492 | 34491 | 34670 | OK
+level128.txt | A*_Manhattan | 0.596864 | 87 | 10706944 | 46081 | 37848 | 47115 | OK
+level128.txt | A*_Relaxation_1.5 | 0.569693 | 87 | 9572352 | 39060 | 31929 | 40279 | OK
+level128.txt | A*_Relaxation_Dynamic | 0.548560 | 87 | 9216000 | 37180 | 30370 | 38260 | OK
+
+level129.txt | DFS | 1.231769 | 532 | 36737024 | 178564 | 178563 | 178796 | OK
+level129.txt | A*_Manhattan | 2.682288 | 98 | 49307648 | 229832 | 185883 | 232857 | OK
+level129.txt | A*_Relaxation_1.5 | 2.665173 | 98 | 45932544 | 208844 | 168443 | 211946 | OK
+level129.txt | A*_Relaxation_Dynamic | 2.608216 | 98 | 45441024 | 203632 | 164230 | 207268 | OK
+
+level130.txt | DFS | 8.249658 | 2778 | 44384256 | 236994 | 236993 | 238108 | OK
+level130.txt | A*_Manhattan | 5.377823 | 101 | 99291136 | 510694 | 388972 | 511495 | OK
+level130.txt | A*_Relaxation_1.5 | 5.853460 | 101 | 104628224 | 476119 | 364441 | 480983 | OK
+level130.txt | A*_Relaxation_Dynamic | 5.574273 | 101 | 99135488 | 440339 | 337739 | 449270 | OK
+
+level131.txt | DFS | 0.552815 | 986 | 15798272 | 80467 | 80466 | 81143 | OK
+level131.txt | A*_Manhattan | 1.621833 | 75 | 36048896 | 179507 | 134003 | 179712 | OK
+level131.txt | A*_Relaxation_1.5 | 1.765534 | 75 | 38268928 | 173955 | 130925 | 175402 | OK
+level131.txt | A*_Relaxation_Dynamic | 1.774542 | 75 | 37359616 | 167473 | 126252 | 170133 | OK
+
+level132.txt | DFS | 0.124667 | 615 | 4788224 | 22507 | 22506 | 22737 | OK
+level132.txt | A*_Manhattan | 0.354763 | 154 | 10547200 | 51884 | 43219 | 52044 | OK
+level132.txt | A*_Relaxation_1.5 | 0.366696 | 154 | 10219520 | 49895 | 41565 | 50131 | OK
+level132.txt | A*_Relaxation_Dynamic | 0.364244 | 154 | 10022912 | 49355 | 41164 | 49604 | OK
+
+level133.txt | DFS | 53.240191 | 1111 | 217329664 | 1077874 | 1077873 | 1078406 | OK
+level133.txt | A*_Manhattan | 36.160466 | 154 | 320053248 | 1668144 | 1282503 | 1668472 | OK
+level133.txt | A*_Relaxation_1.5 | 44.761975 | 154 | 329318400 | 1661873 | 1277758 | 1663359 | OK
+level133.txt | A*_Relaxation_Dynamic | 45.907333 | 154 | 329072640 | 1657423 | 1274550 | 1659653 | OK
+
+level134.txt | DFS | 11.863802 | 1988 | 54165504 | 305524 | 305523 | 306523 | OK
+level134.txt | A*_Manhattan | 35.060552 | 243 | 244416512 | 1357604 | 1056356 | 1357981 | OK
+level134.txt | A*_Relaxation_1.5 | 38.152931 | 243 | 246378496 | 1358246 | 1054892 | 1358809 | OK
+level134.txt | A*_Relaxation_Dynamic | 39.381002 | 243 | 246591488 | 1357749 | 1054725 | 1358323 | OK
+
+level135.txt | DFS | 0.724292 | 415 | 10043392 | 52796 | 52795 | 52984 | OK
+level135.txt | A*_Manhattan | 4.258633 | 134 | 44408832 | 217590 | 177710 | 219158 | OK
+level135.txt | A*_Relaxation_1.5 | 4.334129 | 134 | 42807296 | 198182 | 161959 | 199116 | OK
+level135.txt | A*_Relaxation_Dynamic | 4.420576 | 134 | 42496000 | 194618 | 159251 | 195944 | OK
+
+level136.txt | DFS | 0.349942 | 1398 | 6803456 | 33117 | 33116 | 33487 | OK
+level136.txt | A*_Manhattan | 0.570427 | 133 | 12410880 | 57336 | 49554 | 57405 | OK
+level136.txt | A*_Relaxation_1.5 | 0.631696 | 133 | 12582912 | 56682 | 49030 | 56816 | OK
+level136.txt | A*_Relaxation_Dynamic | 0.619883 | 133 | 12410880 | 56508 | 48882 | 56658 | OK
+
+level137.txt | DFS | 13.416980 | 1700 | 150196224 | 842516 | 842515 | 843315 | OK
+level137.txt | A*_Manhattan | 34.436642 | 176 | 328724480 | 1701217 | 1352401 | 1702536 | OK
+level137.txt | A*_Relaxation_1.5 | 39.368288 | 176 | 340819968 | 1650980 | 1319586 | 1656202 | OK
+level137.txt | A*_Relaxation_Dynamic | 40.314279 | 176 | 341336064 | 1633077 | 1305797 | 1639627 | OK
+
+level138.txt | DFS | 100.173137 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level138.txt | A*_Manhattan | 100.132692 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level138.txt | A*_Relaxation_1.5 | 100.119246 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level138.txt | A*_Relaxation_Dynamic | 100.113234 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level139.txt | DFS | 100.130098 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level139.txt | A*_Manhattan | 100.174179 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level139.txt | A*_Relaxation_1.5 | 100.166020 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level139.txt | A*_Relaxation_Dynamic | 100.161192 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level140.txt | DFS | 10.850688 | 4480 | 43839488 | 243197 | 243196 | 244830 | OK
+level140.txt | A*_Manhattan | 19.972202 | 289 | 195244032 | 1129969 | 868513 | 1130103 | OK
+level140.txt | A*_Relaxation_1.5 | 21.518280 | 289 | 205275136 | 1123416 | 865149 | 1124595 | OK
+level140.txt | A*_Relaxation_Dynamic | 22.046684 | 291 | 207228928 | 1123456 | 865260 | 1124599 | OK
+
+level141.txt | DFS | 9.489469 | 315 | 281489408 | 1399642 | 1399641 | 1399833 | OK
+level141.txt | A*_Manhattan | 69.217127 | 133 | 510758912 | 2529678 | 1990808 | 2535997 | OK
+level141.txt | A*_Relaxation_1.5 | 70.348610 | 133 | 486416384 | 2248220 | 1776740 | 2271082 | OK
+level141.txt | A*_Relaxation_Dynamic | 68.484471 | 133 | 473690112 | 2130715 | 1684444 | 2159199 | OK
+
+level142.txt | DFS | 0.384976 | 2824 | 8298496 | 38824 | 38823 | 40492 | OK
+level142.txt | A*_Manhattan | 0.466119 | 75 | 12222464 | 58753 | 45218 | 58787 | OK
+level142.txt | A*_Relaxation_1.5 | 0.496814 | 75 | 11894784 | 58799 | 45104 | 58850 | OK
+level142.txt | A*_Relaxation_Dynamic | 0.518128 | 75 | 12304384 | 58751 | 45064 | 58810 | OK
+
+level143.txt | DFS | 100.152436 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level143.txt | A*_Manhattan | 100.145793 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level143.txt | A*_Relaxation_1.5 | 100.159880 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level143.txt | A*_Relaxation_Dynamic | 100.134224 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level144.txt | DFS | 100.127275 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level144.txt | A*_Manhattan | 100.233880 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level144.txt | A*_Relaxation_1.5 | 100.212356 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level144.txt | A*_Relaxation_Dynamic | 100.215619 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level145.txt | DFS | 100.171590 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level145.txt | A*_Manhattan | 100.322968 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level145.txt | A*_Relaxation_1.5 | 100.248188 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level145.txt | A*_Relaxation_Dynamic | 100.233481 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level146.txt | DFS | 100.242117 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level146.txt | A*_Manhattan | 100.328291 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level146.txt | A*_Relaxation_1.5 | 100.287580 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level146.txt | A*_Relaxation_Dynamic | 100.275846 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level147.txt | DFS | 0.481051 | 603 | 6389760 | 30447 | 30446 | 30706 | OK
+level147.txt | A*_Manhattan | 2.125495 | 145 | 20123648 | 110183 | 86030 | 110392 | OK
+level147.txt | A*_Relaxation_1.5 | 2.286974 | 145 | 20078592 | 108734 | 85127 | 108956 | OK
+level147.txt | A*_Relaxation_Dynamic | 2.359603 | 145 | 20074496 | 108559 | 84994 | 108812 | OK
+
+level148.txt | DFS | 21.932766 | 1278 | 95625216 | 519194 | 519193 | 519670 | OK
+level148.txt | A*_Manhattan | 21.296642 | 196 | 149864448 | 728767 | 586679 | 728816 | OK
+level148.txt | A*_Relaxation_1.5 | 23.259397 | 196 | 149102592 | 716316 | 575644 | 717619 | OK
+level148.txt | A*_Relaxation_Dynamic | 23.466630 | 196 | 147070976 | 706658 | 568131 | 708766 | OK
+
+level149.txt | DFS | 0.382871 | 146 | 4317184 | 24065 | 24064 | 24143 | OK
+level149.txt | A*_Manhattan | 0.769284 | 93 | 7708672 | 35854 | 29559 | 36383 | OK
+level149.txt | A*_Relaxation_1.5 | 0.771094 | 93 | 6770688 | 31032 | 25567 | 31407 | OK
+level149.txt | A*_Relaxation_Dynamic | 0.722564 | 93 | 6332416 | 29491 | 24322 | 29978 | OK
+
+level150.txt | DFS | 61.939502 | 1713 | 309874688 | 1624771 | 1624770 | 1625689 | OK
+level150.txt | A*_Manhattan | 100.127581 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level150.txt | A*_Relaxation_1.5 | 100.120848 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level150.txt | A*_Relaxation_Dynamic | 100.116667 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level151.txt | DFS | 5.128914 | 699 | 29011968 | 155993 | 155992 | 156359 | OK
+level151.txt | A*_Manhattan | 11.926667 | 124 | 119562240 | 575657 | 446776 | 575910 | OK
+level151.txt | A*_Relaxation_1.5 | 11.921258 | 124 | 114921472 | 493501 | 383705 | 503313 | OK
+level151.txt | A*_Relaxation_Dynamic | 11.087068 | 126 | 103583744 | 437941 | 340841 | 450241 | OK
+
+level152.txt | DFS | 3.072466 | 4768 | 44797952 | 255995 | 255994 | 257115 | OK
+level152.txt | A*_Manhattan | 3.400742 | 232 | 60391424 | 274775 | 246205 | 276636 | OK
+level152.txt | A*_Relaxation_1.5 | 3.197995 | 232 | 56868864 | 251001 | 223570 | 252799 | OK
+level152.txt | A*_Relaxation_Dynamic | 3.335564 | 232 | 56905728 | 250056 | 222711 | 251813 | OK
+
+level153.txt | DFS | 100.184087 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level153.txt | A*_Manhattan | 100.190902 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level153.txt | A*_Relaxation_1.5 | 100.178231 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+level153.txt | A*_Relaxation_Dynamic | 100.151844 | - | - | 0 | 0 | 0 | ERR (TIMEOUT(100.0s))
+
+level154.txt | DFS | 0.004429 | 429 | 122880 | 430 | 429 | 431 | OK
+level154.txt | A*_Manhattan | 0.095930 | 428 | 1531904 | 3024 | 3023 | 3024 | OK
+level154.txt | A*_Relaxation_1.5 | 0.088369 | 428 | 1368064 | 3024 | 3023 | 3024 | OK
+level154.txt | A*_Relaxation_Dynamic | 0.103985 | 428 | 1495040 | 3024 | 3023 | 3024 | OK
+
+level155.txt | DFS | 0.181616 | 306 | 2068480 | 12004 | 12003 | 12137 | OK
+level155.txt | A*_Manhattan | 0.457341 | 281 | 6234112 | 25343 | 21163 | 25437 | OK
+level155.txt | A*_Relaxation_1.5 | 0.458167 | 281 | 5828608 | 22732 | 18985 | 22875 | OK
+level155.txt | A*_Relaxation_Dynamic | 0.464213 | 281 | 5869568 | 22682 | 18939 | 22819 | OK
+
