@@ -16,9 +16,10 @@ RENDER_MAIN_MENU = 0
 RENDER_LEVEL_SELECT = 1
 RENDER_PLAYING = 2
 RENDER_ALGORITHM_SELECTION = 3
-RENDER_SOLVING = 4
-RENDER_SOLVING_ANIM = 5
-RENDER_HELP = 6
+RENDER_HEURISTIC_SELECTION = 4
+RENDER_SOLVING = 5
+RENDER_SOLVING_ANIM = 6
+RENDER_HELP = 7
 g_render_state = -1
 g_screen = None
 g_font = None
@@ -62,6 +63,14 @@ g_selected_algorithm = None
 solving_algorithm_buttons = {
     "DFS": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT//2 - 100, 170, 50),
     "A*": pygame.Rect(SCREEN_WIDTH//2 - 75, SCREEN_HEIGHT//2 - 40, 170, 50)
+}
+
+# --- HEURISTIC SELECTION ---
+g_selected_heuristic = None
+heuristic_buttons = {
+    "Manhattan": pygame.Rect(SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT//2 - 150, 300, 50),
+    "BoundRelaxation (Static)": pygame.Rect(SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT//2 - 80, 300, 50),
+    "BoundRelaxation (Dynamic)": pygame.Rect(SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT//2 - 10, 300, 50)
 }
 
 # --- SOLVING ANIMATION VARIABLES ---
@@ -140,14 +149,29 @@ def load_level(level):
     g_rows, g_cols = len(lines), (max(len(line) for line in lines))
 
 # --- SAVE SOLUTION ---
-def save_solution(path):
+def save_solution(path, algorithm_name, heuristic_name=None, stats=None):
     # Add solution to file
     os.makedirs(g_solution_dir, exist_ok=True)
 
     solution_file = os.path.join(g_solution_dir, f"level_{g_current_level}_solution.txt")
     with open(solution_file, "w") as file:
+        # Write header information
+        file.write(f"Solution for level {g_current_level}\n")
+        file.write(f"Algorithm: {algorithm_name}\n")
+        if heuristic_name:
+            file.write(f"Heuristic: {heuristic_name}\n")
+        file.write(f"Steps: {len(path)-1}\n")
+        
+        # Write statistics if available
+        if stats:
+            file.write(f"Nodes explored: {stats['nodes_explored']}\n")
+            file.write(f"Nodes expanded: {stats['nodes_expanded']}\n")
+            file.write(f"Nodes generated: {stats['nodes_generated']}\n")
+        
+        file.write("\nSolution path:\n")
+        
+        # Write solution steps
         num = 0
-        file.write(f"Solution for level {g_current_level}, steps: {len(path)-1}\n")
         for s in path:
             file.write(f"Step {num}:{s.player}\n")
             num += 1
@@ -182,7 +206,10 @@ def render_move():
     if g_player is None:
         print("render_move: player is None — check level file for player '@' or '+' marker")
         return
-    pygame.draw.circle(g_screen, BLUE, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
+    
+    # Draw player with different color if on goal
+    player_color = YELLOW if g_player in g_goals else BLUE
+    pygame.draw.circle(g_screen, player_color, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
 
     back_button = { "BACK": pygame.Rect((g_cols*TILE_SIZE)//2 - 75, (g_rows*TILE_SIZE) + 10, 170, 50)}
     mouse_pos = pygame.mouse.get_pos()
@@ -253,7 +280,7 @@ def draw_level_preview(level_data, x, y, tile_size=PREVIEW_TILE_SIZE):
             elif ch == '*':
                 pygame.draw.rect(g_screen, GREEN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4)) # Box on goal
             elif ch == '+':
-                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player on goal
+                pygame.draw.circle(g_screen, YELLOW, rect.center, tile_size // 2 - 4) # Player on goal
 
 # --- RENDER LEVEL SELECT ---
 def render_level_select():
@@ -359,11 +386,34 @@ def render_solving():
     global g_screen
     global map_height
     global map_width
+    global g_selected_heuristic
+    
+    # Map heuristic names to internal names
+    heuristic_map = {
+        "Manhattan": "Manhattan",
+        "BoundRelaxation (Static)": "BoundRelaxation (Static)",
+        "BoundRelaxation (Dynamic)": "BoundRelaxation (Dynamic)"
+    }
+    
+    heuristic_name = heuristic_map.get(g_selected_heuristic, "BoundRelaxation (Static)")
+    
+    # Save algorithm
+    if g_selected_algorithm == DFS:
+        algorithm_name = "DFS"
+    else:
+        algorithm_name = "A*"
+    
     # compute solution path (list of State)
-    path = solve(g_walls, g_player, g_boxes, g_goals, map_width, map_height, g_selected_algorithm)
+    path, stats = solve(g_walls, g_player, g_boxes, g_goals, map_width, map_height, g_selected_algorithm, heuristic_name=heuristic_name)
     if path:
         print("Solved! Steps:", len(path)-1)
-        save_solution(path)
+        
+        # Save solution with algorithm and heuristic info
+        if g_selected_algorithm == ASTAR:
+            save_solution(path, algorithm_name, heuristic_name, stats)
+        else:
+            save_solution(path, algorithm_name, None, stats)
+        
         anim_path = path
         anim_index = 0
         anim_last_time = pygame.time.get_ticks()
@@ -399,11 +449,39 @@ def render_select_solving_algorithm():
                 load_level(g_current_level_index + 1)
                 return
             if text == "A*":
-                g_render_state = RENDER_SOLVING
-                g_selected_algorithm = ASTAR
-                g_current_level = g_current_level_index + 1
-                load_level(g_current_level_index + 1)
+                g_render_state = RENDER_HEURISTIC_SELECTION
                 return
+
+# --- RENDER HEURISTIC SELECTION ---
+def render_heuristic_selection():
+    global g_current_level_index
+    global g_render_state
+    global g_click
+    global g_screen
+    global g_selected_algorithm
+    global g_current_level
+    global g_selected_heuristic
+    
+    g_screen.fill(WHITE)
+    mouse_pos = pygame.mouse.get_pos()
+    
+    # Draw title
+    draw_text("Select Heuristic", g_font, BLACK, g_screen, SCREEN_WIDTH//2, 100)
+    
+    for text, rect in heuristic_buttons.items():
+        color = LIGHT_BLUE if rect.collidepoint(mouse_pos) else BLUE
+        pygame.draw.rect(g_screen, color, rect, border_radius=10)
+        draw_text(text, g_font, WHITE, g_screen, rect.centerx, rect.centery)
+
+        # Kiểm tra click
+        if g_click and rect.collidepoint(mouse_pos):
+            g_click = False
+            g_selected_heuristic = text
+            g_render_state = RENDER_SOLVING
+            g_selected_algorithm = ASTAR
+            g_current_level = g_current_level_index + 1
+            load_level(g_current_level_index + 1)
+            return
 
 # --- RENDER SOLVING ANIM ---
 def render_solving_anim():
@@ -477,6 +555,8 @@ def render_state_machine():
         render_playing()
     elif g_render_state == RENDER_ALGORITHM_SELECTION:
         render_select_solving_algorithm()
+    elif g_render_state == RENDER_HEURISTIC_SELECTION:
+        render_heuristic_selection()
     elif g_render_state == RENDER_SOLVING:
         render_solving()
     elif g_render_state == RENDER_SOLVING_ANIM:
