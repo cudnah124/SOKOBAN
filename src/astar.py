@@ -277,13 +277,17 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
         goals = set(goals)
     g_goals = goals
     
-    if heuristic_name == 'relaxation':
+    if heuristic_name == 'BoundRelaxation (Static)':
         goal_distance_map = precompute_goal_distances(walls, goals, map_width, map_height)
         heuristic_func = lambda state, depth: heuristic_bounded_relaxation(state, goal_distance_map, depth)
         epsilon = 1.0  # Weight for bounded relaxation
-    elif heuristic_name == 'manhattan':
+    elif heuristic_name == 'Manhattan':
         heuristic_func = lambda state, depth: heuristic_manhattan(state, depth)
         epsilon = 1.0  # Standard A*
+    elif heuristic_name == 'BoundRelaxation (Dynamic)':
+        goal_distance_map = precompute_goal_distances(walls, goals, map_width, map_height)
+        heuristic_func = lambda state, depth: dynamic_heuristic(state, goal_distance_map, depth)
+        epsilon = 1.0  # Dynamic weight
 
     def is_goal_state(state: State) -> bool:
         return all(box in g_goals for box in state.boxes)
@@ -309,7 +313,7 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
     actions = solver.solve()
     
     if not actions:
-        return None
+        return None, solver.get_statistics()
     
     # Convert actions back to states
     current_state = start_state
@@ -323,5 +327,5 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
                 path.append(current_state)
                 break
     
-    return path
+    return path, solver.get_statistics()
 

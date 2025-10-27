@@ -117,6 +117,7 @@ class DFS:
         }
 
 def dfs_solver(start_state: State, walls: Set[Tuple[int, int]], 
-               goals: Set[Tuple[int, int]]) -> Optional[List[State]]:
+               goals: Set[Tuple[int, int]]) -> Tuple[Optional[List[State]], Optional[dict]]:
     dfs_algorithm = DFS(start_state, walls, goals)
-    return dfs_algorithm.solve()
+    path = dfs_algorithm.solve()
+    return path, dfs_algorithm.get_statistics()
