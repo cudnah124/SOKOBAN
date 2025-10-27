@@ -206,7 +206,10 @@ def render_move():
     if g_player is None:
         print("render_move: player is None — check level file for player '@' or '+' marker")
         return
-    pygame.draw.circle(g_screen, BLUE, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
+    
+    # Draw player with different color if on goal
+    player_color = YELLOW if g_player in g_goals else BLUE
+    pygame.draw.circle(g_screen, player_color, (g_player[0]*TILE_SIZE+TILE_SIZE//2, g_player[1]*TILE_SIZE+TILE_SIZE//2), TILE_SIZE//3)
 
     back_button = { "BACK": pygame.Rect((g_cols*TILE_SIZE)//2 - 75, (g_rows*TILE_SIZE) + 10, 170, 50)}
     mouse_pos = pygame.mouse.get_pos()
@@ -277,7 +280,7 @@ def draw_level_preview(level_data, x, y, tile_size=PREVIEW_TILE_SIZE):
             elif ch == '*':
                 pygame.draw.rect(g_screen, GREEN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4)) # Box on goal
             elif ch == '+':
-                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player on goal
+                pygame.draw.circle(g_screen, YELLOW, rect.center, tile_size // 2 - 4) # Player on goal
 
 # --- RENDER LEVEL SELECT ---
 def render_level_select():

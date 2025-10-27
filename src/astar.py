@@ -206,7 +206,7 @@ def dynamic_heuristic(state: State, goal_distance_map: dict, current_depth: int 
     base_heuristic = heuristic_bounded_relaxation(state, goal_distance_map, current_depth)
     if current_depth < max_depth:
         weight = (1 - current_depth / max_depth)
-        return (1 + weight) * base_heuristic
+        return (1 + weight) * base_heuristic #epsilon = 1.0
     else:
         return 0
 
@@ -280,7 +280,7 @@ def astar_solve(start_state: State, walls, goals, map_width, map_height, heurist
     if heuristic_name == 'BoundRelaxation (Static)':
         goal_distance_map = precompute_goal_distances(walls, goals, map_width, map_height)
         heuristic_func = lambda state, depth: heuristic_bounded_relaxation(state, goal_distance_map, depth)
-        epsilon = 1.0  # Weight for bounded relaxation
+        epsilon = 1.5  # Weight for bounded relaxation
     elif heuristic_name == 'Manhattan':
         heuristic_func = lambda state, depth: heuristic_manhattan(state, depth)
         epsilon = 1.0  # Standard A*
