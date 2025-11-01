@@ -261,21 +261,34 @@ def load_level_preview(filename):
 
 # --- DRAW LEVEL PREVIEW ---
 def draw_level_preview(level_data, x, y, tile_size=PREVIEW_TILE_SIZE):
+    """Hiển thị preview level bằng asset (đồng bộ với giao diện chính)."""
+    # Giảm kích thước asset cho preview
+    def scaled(img):
+        return pygame.transform.scale(img, (tile_size, tile_size))
+
     for row_idx, row in enumerate(level_data):
         for col_idx, ch in enumerate(row):
-            rect = pygame.Rect(x + col_idx * tile_size, y + row_idx * tile_size, tile_size, tile_size)
+            draw_x = x + col_idx * tile_size
+            draw_y = y + row_idx * tile_size
+
+            # --- chọn asset tương ứng ---
             if ch == '#':
-                pygame.draw.rect(g_screen, GRAY, rect) # Wall
+                img = wall_img
             elif ch == '$':
-                pygame.draw.rect(g_screen, BROWN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4))  # Brown box
-            elif ch == '.':
-                pygame.draw.circle(g_screen, GOLD, rect.center, tile_size // 2 - 8) # Goal
-            elif ch == '@':
-                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player
+                img = box_img
             elif ch == '*':
-                pygame.draw.rect(g_screen, GREEN, (2 + x + col_idx * tile_size, 2 + y + row_idx * tile_size, tile_size - 4, tile_size - 4)) # Box on goal
+                img = box_img
+            elif ch == '.':
+                img = goal_img
+            elif ch == '@':
+                img = player_img
             elif ch == '+':
-                pygame.draw.circle(g_screen, BLUE, rect.center, tile_size // 2 - 4) # Player on goal
+                img = player_img
+            else:
+                img = ground_img
+
+            # --- vẽ asset thu nhỏ ---
+            g_screen.blit(scaled(img), (draw_x, draw_y))
 
 # --- RENDER LEVEL SELECT ---
 def render_level_select():
@@ -473,6 +486,12 @@ def render_solving_anim():
                 s = anim_path[anim_index]
                 g_player = s.player
                 g_boxes = set(s.boxes)
+
+                # --- đồng bộ vị trí hiển thị ---
+                global g_player_pos, g_player_target, g_box_positions
+                g_player_pos = g_player_target = g_player
+                g_box_positions = {b: b for b in g_boxes}
+
             else:
                 # finished animation
                 print("---Animation finished---")
